@@ -11,6 +11,7 @@ class Visitor extends Model
     protected $fillable = [
         "name",
         "phone_number",
+        "email",
         "ID/Passport_number",
         "purpose_of_visit",
         "sacco_id",

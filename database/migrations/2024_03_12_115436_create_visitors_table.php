@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string("phone_number");
+            $table->string("email")->nullable();
             $table->string("ID/Passport_number");
             $table->string("purpose_of_visit");
             $table->foreignId("sacco_id")->nullable()->constrained("saccos", "id");

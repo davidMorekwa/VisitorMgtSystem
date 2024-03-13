@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\SaccoController;
+use App\Livewire\Form;
+use App\Livewire\Homescreen;
+use App\Livewire\OfficialInformation;
+use App\Livewire\ThankYou;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomeScreen::class)->name('visitor.home');
+Route::get('/visitor/register', Form::class)->name('visitor.register');
+Route::get('/thankyou', ThankYou::class)->name('visitor.thankyou');
+Route::get('/test', [SaccoController::class, 'get']);
 
 Route::middleware([
     'auth:sanctum',
