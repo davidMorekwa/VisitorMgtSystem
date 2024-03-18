@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("email");
-            $table->foreignId("portfolio_id")->constrained("sacco_portfolios", "id");
+            $table->foreignId("portfolio_id")->constrained("sacco_portfolios", "id")->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

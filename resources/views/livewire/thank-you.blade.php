@@ -38,19 +38,19 @@
 		.log(
 			"Event About to be dispatched"
 		)
-	// setTimeout
-	// 	(() => {
-	// 			Livewire
-	// 				.dispatch(
-	// 					'return-home-event'
-	// 				)
-	// 			console
-	// 				.log(
-	// 					"Event dispatched"
-	// 				)
-	// 		},
-	// 		5000
-	// 	);
+	setTimeout
+		(() => {
+				Livewire
+					.dispatch(
+						'return-home-event'
+					)
+				console
+					.log(
+						"Event dispatched"
+					)
+			},
+			5000
+		);
 	setTimeout
 		(() => {
 				$("#success-alert")

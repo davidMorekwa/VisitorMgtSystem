@@ -2,12 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Models\Visit;
+use App\Models\Visitor;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class PersonalInformation extends Component
 {
+    public $record_exists = true;
 
     #[Validate('required', message: "Name required")]
     #[Validate('regex:/^[a-zA-Z]/', message: "Ivalid character in name")]
@@ -33,15 +36,32 @@ class PersonalInformation extends Component
     }
     public function handleClick()
     {
-        $validated = $this->validate();
-        Log::info("Validation status: ", [$validated]);
-        $personal_information = [
-            "Name" => $this->name,
-            "ID Number" => $this->ID_number,
-            "Phone Number" => $this->phone_number,
-            "Email Address" => $this->email
-        ];
-        $this->dispatch('click-next-event', $personal_information);
+        if($this->record_exists){
+            $visitor = Visitor::where('ID/Passport_number', '=', $this->ID_number)->first();
+            Log::info("",[$visitor]);
+            if ($visitor === null) {
+                Log::info("STATUS: false");
+                $this->record_exists = false;
+            } else {
+                Log::info("STATUS true");
+                $this->dispatch('visitor-exists-event', $visitor);
+                Log::info("EVENT DISPATCHED");
+
+            }
+        } else {
+            $validated = $this->validate();
+            Log::info("Validation status: ", [$validated]);
+            $personal_information = [
+                "Name" => $this->name,
+                "ID Number" => $this->ID_number,
+                "Phone Number" => $this->phone_number,
+                "Email Address" => $this->email
+            ];
+            $this->dispatch('click-next-event', $personal_information);
+        }
+    }
+    public function handleIDNumberChange(){
+        Log::info("ID NUmber ".$this->ID_number);
     }
     public function handleNameInputChange()
     {
@@ -49,7 +69,8 @@ class PersonalInformation extends Component
     }
     public function render()
     {
-        return view('livewire.personal-information');
+        return view('livewire.personal-information')
+            ->with('record_exists', $this->record_exists);
     }
 }
 

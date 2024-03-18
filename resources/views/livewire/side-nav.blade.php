@@ -53,7 +53,7 @@
 			<a
 				wire:click='handleMenuOptionClick'
 				class="hover:bg-sasra_color mt-5 flex transform items-center rounded-lg px-4 py-2 text-gray-600 transition-colors duration-300 hover:text-black"
-				href="#">
+				href="{{ route('dashboard.visitors') }}">
 				<svg
 					class="h-5 w-5"
 					viewBox="0 0 24 24"

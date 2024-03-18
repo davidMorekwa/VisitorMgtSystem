@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saccos', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string("sacco_name");
-            $table->foreignId("portfolio_id")->constrained("sacco_portfolios", "id")->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string("sacco_type");
+            $table->string('role');
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saccos');
+        Schema::dropIfExists('roles');
     }
 };
