@@ -10,6 +10,36 @@
 	<div
 		class="relative">
 		<input
+			id="ID_number"
+			name="ID_number"
+			type="number"
+			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:outline-none"
+			wire:model='ID_number'
+			wire:change='handleIDNumberChange'
+			wire:model.live='ID_number' />
+		<div
+			class="font-serif text-sm font-light text-red-600">
+			@error('ID_number')
+				{{ $message }}
+			@enderror
+		</div>
+
+		@if (
+			$ID_number ==
+				'')
+			<label
+				for="ID_number"
+				class="peer-focus:text-sasra_color absolute left-3 top-1 cursor-text font-light text-gray-600 transition-all peer-focus:-top-4 peer-focus:text-xs">ID/Passport
+				Number</label>
+		@endif
+
+	</div>
+	<br>
+	<br>
+	@if (!$record_exists)
+	    <div
+		class="relative">
+		<input
 			id="name"
 			name="name"
 			type="text"
@@ -93,34 +123,10 @@
 	</div>
 	<br />
 	<br />
-	<div
-		class="relative">
-		<input
-			id="ID_number"
-			name="ID_number"
-			type="number"
-			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:outline-none"
-			wire:model='ID_number'
-			wire:change='handleNameInputChange'
-			wire:model.live='ID_number' />
-		<div
-			class="font-serif text-sm font-light text-red-600">
-			@error('ID_number')
-				{{ $message }}
-			@enderror
-		</div>
-
-		@if (
-			$ID_number ==
-				'')
-			<label
-				for="ID_number"
-				class="peer-focus:text-sasra_color absolute left-3 top-1 cursor-text font-light text-gray-600 transition-all peer-focus:-top-4 peer-focus:text-xs">ID/Passport
-				Number</label>
-		@endif
-
-	</div>
+	
 	<br />
+	
+	@endif
 	<div
 		class="relative flex items-center justify-end">
 		<button
@@ -129,4 +135,5 @@
 			class="bg-sasra_color w-[25%] rounded-xl p-3 font-serif">Next</button>
 	</div>
 	<br>
+	
 </div>

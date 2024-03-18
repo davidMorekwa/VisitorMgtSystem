@@ -2,10 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\HandlerController;
+use App\Http\Controllers\SaccoController;
+use App\Http\Controllers\VisitController;
+use App\Http\Controllers\VisitorController;
 use App\Mail\VisitorArrival;
 use App\Models\Handler;
 use App\Models\Sacco;
 use App\Models\Saccos;
+use App\Models\Visit;
 use App\Models\Visitor;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -14,13 +19,33 @@ use Livewire\Component;
 
 class Form extends Component
 {
+    // protected $visitorController;
+    // function __construct(VisitorController $visitorController){
+    //     $this->visitorController = $visitorController;
+    // }
+   
     public $personal_information = [
-        "Name" => "",
-        "ID_Number" => "",
-        "Phone_Number" => "",
-        "Email_Address" => ""
+        "id"=>"",
+        "Name" => "Sample",
+        "ID_Number" => "Sample",
+        "Phone_Number" => "Sample",
+        "Email_Address" => "Sample"
     ];
     public $isNext = false;
+    public $visitorExists = false;
+
+    #[On('visitor-exists-event')]
+    public function handleVisitorExistsEvent($visitor)
+    {
+        Log::info("VISITOR EXISTS EVENT HANDLED");
+        $this->visitorExists = true;
+        $this->isNext = true;
+        $this->personal_information["id"] = $visitor["id"];
+        $this->personal_information["Name"] = $visitor["name"];
+        $this->personal_information["ID_Number"] = $visitor["ID/Passport_number"];
+        $this->personal_information["Phone_Number"] = $visitor["phone_number"];
+        $this->personal_information["Email_Address"] = $visitor["email"];
+    }
 
     #[On('click-next-event')]
     public function handleEvent($personal_information)
@@ -46,60 +71,76 @@ class Form extends Component
         $mail_to = "";
         $subject = "";
         Log::info("Finish click event handled");
-        $visitor = [
-            "name" => $this->personal_information["Name"],
-            "phone_number" => $this->personal_information["Phone_Number"],
-            "ID/Passport_number" => $this->personal_information["ID_Number"],
-            "email" => $this->personal_information["Email_Address"],
+        
+        if(!$this->visitorExists){
+            $visitor = [
+                "name" => $this->personal_information["Name"],
+                "phone_number" => $this->personal_information["Phone_Number"],
+                "ID/Passport_number" => $this->personal_information["ID_Number"],
+                "email" => $this->personal_information["Email_Address"],
+            ];
+            $visitor_id = $this->saveVisitorProfile($visitor);
+        } else {
+            $visitor_id = $this->personal_information["id"];
+        }
+        $timestamp = strtotime(date("F j, Y, g:i a"));
+        $time_in = date('Y-m-d H:i:s', $timestamp);
+
+
+        $visit = [
             "purpose_of_visit" => $official_information["Selected Purpose"],
+            "visitor_id" => $visitor_id,
+            "time_in" => $time_in
         ];
 
-        if ($official_information["Selected Purpose"] == "Offical Visit") {
-            $visitor["person_to_visit"] = $official_information["Person to Visit"];
+        if ($visit["purpose_of_visit"] == "Offical Visit" || $visit["purpose_of_visit"] == "Delivery") {
+            $visit["person_to_visit"] = $official_information["Person to Visit"];
         }
-        if ($official_information["Selected Purpose"] == "Make a complaint" || $official_information["Selected Purpose"] == "Accounts") {
-            $visitor["sacco_id"] = $official_information["SACCO_Name"];
-            // $portfolio_id = $this->getSaccoPortfolioID($official_information["SACCO_Name"]);
-            // Log::info("SACCO PORTFOIO: ", [$portfolio_id]);
-            // Log::info("SACCO_ID", [$official_information["SACCO_Name"]]);
+        if ($visit["purpose_of_visit"] == "Make a complaint" || $visit["purpose_of_visit"] == "Accounts") {
+            $visit["sacco_id"] = intval($official_information["SACCO_Name"]);
             $mail_to = $this->getPortfolioHandler($official_information["SACCO_Name"]);
-            Log::info("SACCO HANDLER ",[$mail_to->name]);
+
             $subject = "VISITOR ARRIVAL: " . $official_information["Selected Purpose"];
-            Log::info("SUBJECT: " . $subject);
         }
-        Log::info("Visitor creaated ", [$visitor]);
-        $email_sent = $this->sendEmail(
-            to: $mail_to->email,
-            subject: $subject,
-            visitor_name: $this->personal_information["Name"],
-            handler_name: $mail_to->name,
-            purpose_of_visit: $official_information["Selected Purpose"],
-            visitor_phone_number: $this->personal_information["Phone_Number"]
-        );
-        if ($email_sent) {
-            Log::info("Email Sent Successfully");
-            $this->save($visitor);
-        } else {
-            Log::error("Email Failed");
+        Log::info("OFFICIAL INFO: ", [$visit]);
+        // $email_sent = $this->sendEmail(
+        //     to: $mail_to->email,
+        //     subject: $subject,
+        //     visitor_name: $this->personal_information["Name"],
+        //     handler_name: $mail_to->name,
+        //     purpose_of_visit: $official_information["Selected Purpose"],
+        //     visitor_phone_number: $this->personal_information["Phone_Number"]
+        // );
+        // Log::info("EMAIL SENT", [$email_sent]);
+        return $this->saveVisitInformation($visit);
         }
-    }
-    function save($visitor)
+    function saveVisitorProfile($visitor)
     {
-        $visitor = Visitor::create($visitor);
+        $controller = new VisitorController();
+        $visitor = $controller->saveVisitor($visitor);
         if ($visitor) {
             Log::info("Visitor inserted into db", [$visitor]);
-            return redirect()->route('visitor.thankyou')->with('status', 'Success!');
+            return $visitor;
         }
+    }
+    // TODO: Check why it is not redirecting
+    function saveVisitInformation($visitInfo){
+        Visit::create($visitInfo);
+        Log::info("Visitor created");
+        Log::info("REDIRECTING TO THANK YOU");
+        return redirect('/thankyou');
     }
     function getPortfolioHandler($sacco_id)
     {
+        $controller = new HandlerController();
         $portfolio_id = $this->getSaccoPortfolioID($sacco_id);
-        $handler = Handler::where('portfolio_id', '=', $portfolio_id)->first(['email', 'name']);
+        $handler = $controller->getPortfolioHandler($portfolio_id);
         return $handler;
     }
     function getSaccoPortfolioID($sacco_id)
     {
-        $sacco = Sacco::find($sacco_id);
+        $controller = new SaccoController();
+        $sacco = $controller->getSaccoPortfolioID($sacco_id);
         return $sacco->portfolio_id;
     }
     function sendEmail($to, $subject, $visitor_name, $handler_name, $purpose_of_visit, $visitor_phone_number)
@@ -111,6 +152,8 @@ class Form extends Component
     {
         return view('livewire.form')
             ->with("isNext", $this->isNext)
+            ->with('visitor', $this->personal_information)
+            ->with('visitor_exists', $this->visitorExists)
             ->layout('components.layouts.app', ["title" => "Registration"]);
     }
 }

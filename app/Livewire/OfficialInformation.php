@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Sacco;
 use App\Models\Saccos;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -30,6 +31,9 @@ class OfficialInformation extends Component
     public $sacco_name = "";
 
     public $saccos = [];
+
+
+    
 
     public function handleSaccoTypeChange()
     {

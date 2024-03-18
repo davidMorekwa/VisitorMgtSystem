@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 
 class SaccoController extends Controller
 {
-    function get($id = 290){
-        $saccos = Sacco::where('id', '=', $id)->get();
-        dd($saccos);
+    function getSaccoPortfolioID($sacco_id = 1){
+        return Sacco::find($sacco_id, ['portfolio_id']);
     }
 }

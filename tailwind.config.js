@@ -17,7 +17,8 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors:{
-                sasra_color: "#F09C22"
+                sasra_color: "#F09C22",
+                sasra_hover: "#FBCD89"
             }
         },
     },

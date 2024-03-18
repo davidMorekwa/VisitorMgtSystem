@@ -18,14 +18,14 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <x-banner />
+        {{-- <x-banner /> --}}
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen">
             @livewire('navigation-menu')
-            <div class="flex flex-row min-h-screen">
+            <div class="flex flex-row min-h-screen border-3 border-red-950">
                 @livewire('side-nav')
                 <!-- Page Content -->
-                <main>
+                <main class="bg-gray-100 w-full">
                     {{ $slot }}
                 </main>
             </div>

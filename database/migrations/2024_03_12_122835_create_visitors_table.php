@@ -13,14 +13,11 @@ return new class extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger("ID/Passport_number");
             $table->string('name');
             $table->string("phone_number");
             $table->string("email")->nullable();
-            $table->string("ID/Passport_number");
-            $table->string("purpose_of_visit");
-            $table->foreignId("sacco_id")->nullable()->constrained("saccos", "id");
-            $table->string("person_to_visit")->nullable();
-            $table->timestamps();
+
         });
     }
 

@@ -83,7 +83,7 @@
 						'')
 					<label
 						for="sacco_type"
-						class="absolute font-light text-gray-600 transition-all left-[0rem] top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">SACCO
+						class="absolute font-light text-gray-600 transition-all left-[1rem] top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">SACCO
 						Type</label>
 				@endif
 				<div
@@ -124,7 +124,7 @@
 						'')
 					<label
 						for="sacco_name"
-						class="absolute font-light text-gray-600 transition-all left-[14rem] top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">SACCO
+						class="absolute font-light text-gray-600 transition-all left-[22rem] top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">SACCO
 						Name</label>
 				@endif
 			</div>
