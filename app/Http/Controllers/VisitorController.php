@@ -32,13 +32,51 @@ class VisitorController extends Controller
         // dd($visits);
         return view('dashboard.visitors')->with('visitors', $visits);
     }
-    function getVisitorVisits($id){
+    function getVisitorVisits($id)
+    {
         $visits = Visit::where('visitor_id', '=', $id)->get();
         // dd($visits);
         return $visits;
     }
+    function getPeakHours()
+    {
+        $visits = Visit::select('time_in')
+            ->whereNotNull('time_in')
+            ->get();
+        $visitorCount = [];
 
-    function deleteVisitor(Request $request){
+        foreach ($visits as $visit) {
+            $hour = date('H', strtotime($visit->time_in));
+            if ($hour >= "08" && $hour <= "17") {
+                if (!isset($visitorCount[$hour."00hrs"])) {
+                    $visitorCount[$hour."00hrs"] = 1;
+                } else {
+                    $visitorCount[$hour . "00hrs"]++;
+                }
+            }
+        }
+        ksort($visitorCount);
+        $hours = array_keys($visitorCount);
+        $counts = array_values($visitorCount);
+        $data = array(
+            "hours" => $hours,
+            "values" => $counts
+        );
+        return $data;
+    }
+
+    function getVisitorByPurpose()
+    {
+        $visits = Visit::all()->groupBy('purpose_of_visit');
+        $data = [];
+        foreach ($visits as $key => $value) {
+            $data[$key] = count($visits[$key]);
+        }
+        return $data;
+    }
+
+    function deleteVisitor(Request $request)
+    {
         Visitor::find($request->visitor_id)->delete();
         return redirect()->route('dashboard.visitors');
     }
