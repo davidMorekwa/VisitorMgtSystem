@@ -135,7 +135,8 @@
 	{{-- If purpose is "visitation" display this --}}
 	@if (
 		$selected_purpose ==
-			'Official visit')
+			'Official visit' || $selected_purpose ==
+			'Delivery')
 		<div
 			class="relative">
 			<input

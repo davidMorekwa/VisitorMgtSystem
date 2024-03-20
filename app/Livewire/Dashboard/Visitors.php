@@ -14,6 +14,7 @@ class Visitors extends Component
     public $selected_visitor = "";
     public $visits = [];
     public $isEdit = false;
+    private $visitors = [];
 
     public function handleVisitorClick($id){
         $visitor = Visitor::find($id);
@@ -30,14 +31,30 @@ class Visitors extends Component
         $this->visits = $visits;
     }
 
+    function getVisitorByPurpose($purpose){
+        $visitors = DB::table('visits')
+            ->where('purpose_of_visit', '=', $purpose)
+            ->join('visitors', 'visits.visitor_id', '=', 'visitors.id')
+            ->paginate(20);
+        $this->visitors = $visitors;
+        return view('livewire.dashboard.visitors')
+        ->with('visitors', $visitors)
+            ->with('selected_visitor', $this->selected_visitor)
+            ->with('visits', $this->visits)
+            ->with('isEdit', $this->isEdit)
+            ->layout('layouts.app');
+    }
+
+
     public function render()
     {
         $visitors = DB::table('visits')
             ->join('visitors', 'visits.visitor_id', '=', 'visitors.id')
             ->orderBy('visits.time_in')
             ->paginate(20);
+        $this->visitors = $visitors;
         return view('livewire.dashboard.visitors')
-            ->with('visitors', $visitors)
+            ->with('visitors', $this->visitors)
             ->with('selected_visitor', $this->selected_visitor)
             ->with('visits', $this->visits)
             ->with('isEdit', $this->isEdit)
