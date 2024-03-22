@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class Visitors extends Component
 {
-    public $selected_visitor = "";
+    public $is_visitor_selected = false;
     public $visits = [];
     public $isEdit = false;
     private $visitors = [];
@@ -19,16 +19,22 @@ class Visitors extends Component
     public function handleVisitorClick($id){
         $visitor = Visitor::find($id);
         Log::info("SELECTED VISITOR: ",[$visitor]);
-        $this->selected_visitor = $visitor;
         // $visits = Visit::where('visitor_id', '=', $id)->get();
         $visits = DB::table('visits')
             ->where('visits.visitor_id', '=', $id)
             ->join('saccos', 'visits.sacco_id', '=', 'saccos.id', type:'left')
             ->orderBy('visits.time_in', 'desc')
             ->get();
+        $this->is_visitor_selected = true;
+        $this->dispatch('selected_visitor_event', $visitor, $this->is_visitor_selected);
         // dd($visits);
+        
 
         $this->visits = $visits;
+    }
+    function handleEditClick($id){
+        Log::info($id);
+        $this->isEdit = true;
     }
 
     function getVisitorByPurpose($purpose){
@@ -55,7 +61,7 @@ class Visitors extends Component
         $this->visitors = $visitors;
         return view('livewire.dashboard.visitors')
             ->with('visitors', $this->visitors)
-            ->with('selected_visitor', $this->selected_visitor)
+            ->with('is_visitor_selected', $this->is_visitor_selected)
             ->with('visits', $this->visits)
             ->with('isEdit', $this->isEdit)
             ->layout('layouts.app');
