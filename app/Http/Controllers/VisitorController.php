@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VisitorsRequest;
 use App\Livewire\Form;
 use App\Models\Visit;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class VisitorController extends Controller
 {
@@ -73,11 +75,5 @@ class VisitorController extends Controller
             $data[$key] = count($visits[$key]);
         }
         return $data;
-    }
-
-    function deleteVisitor(Request $request)
-    {
-        Visitor::find($request->visitor_id)->delete();
-        return redirect()->route('dashboard.visitors');
     }
 }
