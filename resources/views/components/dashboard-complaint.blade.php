@@ -5,6 +5,6 @@
             <p class="text-center">
                   {{$complaint->purpose_of_visit}}
             </p>
-            <button onclick="document.location.href='/dashboard/visitors/{{$complaint->purpose_of_visit}}'" class="bg-sasra_color hover:bg-sasra_hover w-full rounded-md py-2 text-indigo-100 duration-75 hover:text-slate-900 hover:shadow-md">Select</button>
+            <button wire:click="handlePurposeClick('{{$complaint->purpose_of_visit}}')" class="bg-sasra_color hover:bg-sasra_hover w-full rounded-md py-2 text-indigo-100 duration-75 hover:text-slate-900 hover:shadow-md">Select</button>
       </div>
 </div>
