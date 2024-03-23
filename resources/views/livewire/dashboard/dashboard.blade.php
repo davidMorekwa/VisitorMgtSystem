@@ -1,4 +1,105 @@
 <div class="pt-3 flex flex-col">
+	@if ($is_purpose_clicked)
+	<p class="text-2xl font-light">{{$purpose_clicked}}</p>
+	<br>
+	<div>
+		<div class="flex flex-row">
+			<div class="mr-4 w-full border-r-2 h-screen p-2">
+				<table class="table-cell h-screen border">
+					<thead class="border">
+						<tr>
+							<th>
+								Name
+							</th>
+							<th>
+								Email
+							</th>
+							<th>
+								ID/Passport_Number
+							</th>
+							<th>
+								Phone_Number
+							</th>
+							@switch($purpose_clicked)
+							@case("Make a complaint")
+							<th>
+								Sacco Name
+							</th>
+							@break
+							@case("Personal Visit")
+							<th>
+								Person to See
+							</th>
+							@break
+							@case("Delivery")
+							<th>
+								Person to See
+							</th>
+							@break
+							@case("Accounts")
+							<th>
+								Sacco Name
+							</th>
+							@break
+							@default
+							@endswitch
+						</tr>
+					</thead>
+					<tbody>
+						@foreach ($visitors as $visitor)
+						<tr
+							class="hover:bg-sasra_hover m-auto px-3 hover:cursor-pointer border-b-2 border-dotted">
+							<td>
+								<form>
+									<input type="text" value="{{ $visitor->name }}"
+										class="border-none bg-transparent">
+								</form>
+							</td>
+							<td>
+								{{ $visitor->email }}
+							</td>
+							<td>
+								{{ $visitor->{'ID/Passport_number'} }}
+							</td>
+							<td>
+								{{ $visitor->phone_number }}
+							</td>
+							@switch($purpose_clicked)
+							@case("Make a complaint")
+							<td>
+								{{ $visitor->sacco_name }}
+							</td>
+							@break
+							@case("Personal Visit")
+							<td>
+								{{ $visitor->person_to_see }}
+							</td>
+							@break
+							@case("Delivery")
+							<td>
+								{{ $visitor->person_to_see }}
+							</td>
+							@break
+							@case("Accounts")
+							<td>
+								{{ $visitor->sacco_name }}
+							</td>
+							@break
+							@default
+							@endswitch
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+				{{-- {{ $visitors->links() }} --}}
+			</div>
+			<div>
+				<x-button>Export to Excel</x-button>
+			</div>
+		</div>
+	</div>
+	@else
+	{{-- DISPLAY NORMAL DASHBOARD --}}
 	<div>
 		<h3 class="font-bold text-2xl">Visitors By Purpose</h3>
 		<div id="myVisitorCategories" class="w-full">
@@ -24,6 +125,7 @@
 			<canvas id="myVisitorsChart"></canvas>
 		</div>
 	</div>
+	@endif
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -125,6 +227,9 @@
 				}
 			}
 		});
+	}
+	async function drawVisitorsByPurposeGraph(){
+
 	}
 
 </script>

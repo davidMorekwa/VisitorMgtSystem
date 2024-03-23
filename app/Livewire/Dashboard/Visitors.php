@@ -27,9 +27,6 @@ class Visitors extends Component
             ->get();
         $this->is_visitor_selected = true;
         $this->dispatch('selected_visitor_event', $visitor, $this->is_visitor_selected);
-        // dd($visits);
-        
-
         $this->visits = $visits;
     }
     function handleEditClick($id){

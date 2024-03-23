@@ -33,8 +33,8 @@ Route::get('/thankyou', [VisitorController::class, 'showThankYouPage']);
 Route::get('/test', [SaccoController::class, 'getSaccoPortfolioID']);
 Route::get('/test/handler', [HandlerController::class, 'getPortfolioHandler']);
 Route::post('/test/visit/add', [VisitController::class, 'saveVisitInformation']);
-// Route::post('dashboard/visitors/update', [VisitorController::class, 'updateVisitorInformation']);
 Route::get('/test2', SelectedVisitorForm::class);
+
 
 
 Route::middleware([
@@ -46,7 +46,7 @@ Route::middleware([
     Route::get('/visits', [VisitController::class, 'getVisits']);
     Route::get('/dashboard/visitors', Visitors::class)->name('dashboard.visitors'); 
     Route::get('dashboard/visitors/{id}', [VisitorController::class, 'getVisitorVisits'])->name('dashboard.visitors.getVisits');
-    Route::get('dashboard/visitors/{purpose}', [VisitorController::class, 'getVisitorByPurpose'])->name('dashboard.visitors.getVistorsByPurpose');
+    // Route::get('dashboard/visitors/{purpose}', [VisitorController::class, 'getVisitorBySelectedPurpose'])->name('dashboard.visitors.getVistorsByPurpose');
     Route::get('/peakhours', [VisitorController::class, 'getPeakHours'])->name('peak_hours');
     Route::get('visitors/getbypurpose', [VisitorController::class, 'getVisitorByPurpose']);
 });

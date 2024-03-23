@@ -1,21 +1,20 @@
 <div>
-	{{-- @livewire('selected-visitor-form') --}}
 	<div class="flex flex-row">
 		<div class="mr-4 w-3/5 border-r-2 p-2">
-			<table class="table-cell">
-				<thead>
-					<tr>
+			<table class="table-cell w-full border">
+				<thead class="border">
+					<tr class="border-2">
 
-						<th>
+						<th class="m-auto">
 							Name
 						</th>
-						<th>
+						<th class="m-auto">
 							Email
 						</th>
-						<th>
+						<th class="m-auto">
 							ID/Passport_Number
 						</th>
-						<th>
+						<th class="m-3">
 							Phone_Number
 						</th>
 					</tr>
@@ -23,7 +22,7 @@
 				<tbody>
 					@foreach ($visitors as $visitor)
 					<tr wire:click='handleVisitorClick({{ $visitor->id }});'
-						class="hover:bg-sasra_hover m-auto px-3 hover:cursor-pointer">
+						class="hover:bg-sasra_hover px-3 hover:cursor-pointer border-b-2 border-dotted my-10 h-2">
 						<td>
 							<form action="">
 								<input type="text" value="{{ $visitor->name }}"
@@ -31,13 +30,13 @@
 							</form>
 						</td>
 						<td>
-							{{ $visitor->email }}
+							<p>{{ $visitor->email }}</p>
 						</td>
 						<td>
-							{{ $visitor->{'ID/Passport_number'} }}
+							<p>{{ $visitor->{'ID/Passport_number'} }}</p>
 						</td>
 						<td>
-							{{ $visitor->phone_number }}
+							<p>{{ $visitor->phone_number }}</p>
 						</td>
 					</tr>
 					@endforeach
@@ -98,70 +97,8 @@
 						</tbody>
 					</table>
 				</div>
-				<br>
-				<br>
-				<div>
-					<x-button class="font-light">Generate Report</x-button>
-				</div>
 			</div>
 			@endif
 		</div>
 	</div>
-	{{-- <script>
-		$(document).ready(function () {
-			console.log("Documennt is ready")
-			// $("#btn_save").click(function (e) { 
-				
-			// 	e.preventDefault();
-			// 	var visitorInfoFormData = $("#visitorInfoForm").serialize()
-			// 	console.log("visitorInfoFormData")
-			// 	console.log(visitorInfoFormData)
-
-			// 	$.ajaxSetup({
-			// 		headers: {
-			// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			// 		}
-			// 	});
-			// 	$.ajax({
-			// 		type: "POST",
-			// 		url: "http://localhost:8001/dashboard/visitors/update",
-			// 		data: visitorInfoFormData,
-			// 		success: function (response) {
-			// 			console.log("Response from save")
-			// 			console.log(response)
-			// 			$("#success-alert").fadeIn();
-			// 			setTimeout(() => {
-			// 				$("#success-alert").fadeOut();
-			// 			}, 2000);
-			// 		},
-			// 		error: function (error){
-			// 			console.error("An error has occured when the save button was clicked");
-			// 			console.error(error)
-			// 		}
-			// 	});
-			// });
-			$("#btn_delete").click(function (e) { 
-				e.preventDefault();
-				var visitorInfoFormData = $("#visitorInfoForm").serialize()
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-				$.ajax({
-					type: "DELETE",
-					url: "http://localhost:8001/dashboard/visitors/delete",
-					data: visitorInfoFormData,
-					success: function (response) {
-						console.log("Response from save")
-						console.log(response)
-					},
-					error: function (error){
-						console.error("An error has occured when the save button was clicked");
-						console.error(error)
-					}
-				});
-			});
-		});
-	</script> --}}
 </div>
