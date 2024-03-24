@@ -50,8 +50,8 @@ class VisitorController extends Controller
         foreach ($visits as $visit) {
             $hour = date('H', strtotime($visit->time_in));
             if ($hour >= "08" && $hour <= "17") {
-                if (!isset($visitorCount[$hour."00hrs"])) {
-                    $visitorCount[$hour."00hrs"] = 1;
+                if (!isset($visitorCount[$hour . "00hrs"])) {
+                    $visitorCount[$hour . "00hrs"] = 1;
                 } else {
                     $visitorCount[$hour . "00hrs"]++;
                 }
@@ -75,5 +75,10 @@ class VisitorController extends Controller
             $data[$key] = count($visits[$key]);
         }
         return $data;
+    }
+    function test3()
+    {
+        $t = Visit::where('time_in', '>=', '2022-03-01 00:00:00')->get();
+        dd($t);
     }
 }

@@ -27,7 +27,7 @@
 				<span class="mx-4 font-medium">Accounts</span>
 			</a>
 
-			<a wire:click='handleMenuOptionClick'
+			<a wire:click="handleMenuOptionClick('Visitors')"
 				class="hover:bg-sasra_color mt-5 flex transform items-center rounded-lg px-4 py-2 text-gray-600 transition-colors duration-300 hover:text-black"
 				href="{{ route('dashboard.visitors') }}">
 				<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,9 +38,9 @@
 
 				<span class="mx-4 font-medium">Visitors</span>
 			</a>
-			<a wire:click='handleMenuOptionClick'
+			<a wire:click="handleMenuOptionClick('Messages')"
 				class="hover:bg-sasra_color mt-5 flex transform items-center rounded-lg px-4 py-2 text-gray-600 transition-colors duration-300 hover:text-black"
-				href="#">
+				href="{{ route('dashboard.message') }}">
 				<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
 					viewBox="0 0 50 50">
 					<path

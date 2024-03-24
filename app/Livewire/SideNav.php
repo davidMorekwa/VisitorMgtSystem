@@ -9,7 +9,8 @@ class SideNav extends Component
 {
     public $selected_menu_option = "";
 
-    public function handleMenuOptionClick(){
+    public function handleMenuOptionClick($option){
+        $this->selected_menu_option = $option;
         Log::info("Menu selected ".$this->selected_menu_option);
     }
     public function render()
