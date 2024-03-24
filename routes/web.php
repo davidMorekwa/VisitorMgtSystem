@@ -7,6 +7,7 @@ use App\Http\Controllers\VisitController;
 use App\Http\Controllers\VisitorController;
 use App\Livewire\Dashboard;
 use App\Livewire\Dashboard\Dashboard as DashboardDashboard;
+use App\Livewire\Dashboard\Message;
 use App\Livewire\Dashboard\SelectedVisitorForm;
 use App\Livewire\Dashboard\Visitors;
 use App\Livewire\Form;
@@ -34,6 +35,7 @@ Route::get('/test', [SaccoController::class, 'getSaccoPortfolioID']);
 Route::get('/test/handler', [HandlerController::class, 'getPortfolioHandler']);
 Route::post('/test/visit/add', [VisitController::class, 'saveVisitInformation']);
 Route::get('/test2', SelectedVisitorForm::class);
+Route::get('/test3', [VisitorController::class, 'test3']);
 
 
 
@@ -46,7 +48,7 @@ Route::middleware([
     Route::get('/visits', [VisitController::class, 'getVisits']);
     Route::get('/dashboard/visitors', Visitors::class)->name('dashboard.visitors'); 
     Route::get('dashboard/visitors/{id}', [VisitorController::class, 'getVisitorVisits'])->name('dashboard.visitors.getVisits');
-    // Route::get('dashboard/visitors/{purpose}', [VisitorController::class, 'getVisitorBySelectedPurpose'])->name('dashboard.visitors.getVistorsByPurpose');
     Route::get('/peakhours', [VisitorController::class, 'getPeakHours'])->name('peak_hours');
     Route::get('visitors/getbypurpose', [VisitorController::class, 'getVisitorByPurpose']);
+    Route::get('/dashboard/message', Message::class)->name('dashboard.message');
 });
