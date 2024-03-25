@@ -29,14 +29,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Controller::class, 'showHomeScreen'])->name('visitor.home');
-// Route::get('/visitor/register', Form::class)->name('visitor.register');
 Route::get('/visitor/register', [VisitorController::class, 'showRegistrationForm'])->name('visitor.register');
 Route::get('/thankyou', [VisitorController::class, 'showThankYouPage'])->name('thank-you');
-Route::get('/test', [SaccoController::class, 'getSaccoPortfolioID']);
-Route::get('/test/handler', [HandlerController::class, 'getPortfolioHandler']);
-Route::post('/test/visit/add', [VisitController::class, 'saveVisitInformation']);
-Route::get('/test2', SelectedVisitorForm::class);
-Route::get('/test3', [VisitorController::class, 'test3']);
+Route::get('/time_out', [VisitorController::class, 'showTimeOutView']);
+
 
 
 Route::middleware([
@@ -51,4 +47,6 @@ Route::middleware([
     Route::get('/peakhours', [VisitorController::class, 'getPeakHours'])->name('peak_hours');
     Route::get('visitors/getbypurpose', [VisitorController::class, 'getVisitorByPurpose']);
     Route::get('/dashboard/message', Message::class)->name('dashboard.message');
+    Route::get('/visitor_export', [VisitorController::class, 'get_visitor_data'])->name('visitor.export');
 });
+

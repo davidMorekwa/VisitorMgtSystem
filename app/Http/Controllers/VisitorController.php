@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VisitorExport;
 use App\Http\Requests\VisitorsRequest;
 use App\Livewire\Form;
 use App\Models\Visit;
@@ -9,12 +10,16 @@ use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VisitorController extends Controller
 {
     function showRegistrationForm()
     {
         return view('visitor-reg');
+    }
+    function showTimeOutView(){
+        return view('time-out');
     }
     function saveVisitor($visitor)
     {
@@ -75,6 +80,9 @@ class VisitorController extends Controller
             $data[$key] = count($visits[$key]);
         }
         return $data;
+    }
+    function get_visitor_data(){
+        return Excel::download(new VisitorExport(), 'visitors.xlsx');
     }
     function test3()
     {

@@ -93,9 +93,6 @@
 				</table>
 				{{-- {{ $visitors->links() }} --}}
 			</div>
-			<div>
-				<x-button>Export to Excel</x-button>
-			</div>
 		</div>
 	</div>
 	@else
