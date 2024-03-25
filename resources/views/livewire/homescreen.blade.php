@@ -1,4 +1,4 @@
-<div class="w-full border border-red-600 h-[100vh] flex flex-col justify-center items-center">
+<div class="w-full border h-[100vh] flex flex-col justify-center items-center">
     <img 
         class="w-56"
         src="{{ asset('storage/sasraLogo.jpeg') }}"

@@ -2,10 +2,16 @@
 
 namespace App\Livewire\Dashboard;
 
+use App\Mail\Feedback;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
+use Illuminate\Notifications\Facades\Vonage;
+use Illuminate\Support\Facades\Mail;
+use Vonage\Client;
+use Vonage\Client\Credentials\Basic;
+use Vonage\SMS\Message\SMS;
 use Livewire\Component;
 
 class Message extends Component
@@ -32,9 +38,33 @@ class Message extends Component
     }
     function handleSendSMSClick(){
         Log::info('Message: ', [$this->message_to_send]);
+        $basic = new Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
+        $client = new Client($basic);
+        foreach ($this->visitors as $visitor) {
+             Log::info("Phone Number: ".$visitor->phone_number);
+            $response = $client->sms()->send(
+                new SMS(to: $visitor->phone_number, from: "SASRA", message: $this->message_to_send)
+            );
+            $message = $response->current();
+            if ($message->getStatus() == 0) {
+                echo "The message was sent successfully\n";
+            } else {
+                echo "The message failed with status: " . $message->getStatus() . "\n";
+            }
+        }
+        
     }
     function handleSendEmailClick(){
         Log::info('Message: ', [$this->message_to_send]);
+        foreach ($this->visitors as $visitor) {
+            Log::info("Email Address: ".$visitor->email);
+            $email = $this->sendEmail(to: $visitor->email, subject:"SASRA CUSTOMER FEEDBACK", visitor_name:$visitor->name, email_body:$this->message_to_send);
+            Log::info("EMAIL SENT", [$email]);
+        }
+    }
+    function sendEmail($to, $subject, $visitor_name, $email_body){
+        $email = new Feedback(subject:$subject, visitor_name:$visitor_name, email_body:$email_body);
+        return Mail::to($to)->send($email);
     }
     public function render()
     {

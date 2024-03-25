@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HandlerController;
 use App\Http\Controllers\SaccoController;
+use App\Http\Controllers\SMSController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\VisitorController;
 use App\Livewire\Dashboard;
@@ -30,13 +31,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [Controller::class, 'showHomeScreen'])->name('visitor.home');
 // Route::get('/visitor/register', Form::class)->name('visitor.register');
 Route::get('/visitor/register', [VisitorController::class, 'showRegistrationForm'])->name('visitor.register');
-Route::get('/thankyou', [VisitorController::class, 'showThankYouPage']);
+Route::get('/thankyou', [VisitorController::class, 'showThankYouPage'])->name('thank-you');
 Route::get('/test', [SaccoController::class, 'getSaccoPortfolioID']);
 Route::get('/test/handler', [HandlerController::class, 'getPortfolioHandler']);
 Route::post('/test/visit/add', [VisitController::class, 'saveVisitInformation']);
 Route::get('/test2', SelectedVisitorForm::class);
 Route::get('/test3', [VisitorController::class, 'test3']);
-
 
 
 Route::middleware([
