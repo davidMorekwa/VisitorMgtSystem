@@ -103,22 +103,20 @@ class Form extends Component
             $subject = "VISITOR ARRIVAL: " . $official_information["Selected Purpose"];
         }
         Log::info("OFFICIAL INFO: ", [$visit]);
-        // $email_sent = $this->sendEmail(
-        //     to: $mail_to->email,
-        //     subject: $subject,
-        //     visitor_name: $this->personal_information["Name"],
-        //     handler_name: $mail_to->name,
-        //     purpose_of_visit: $official_information["Selected Purpose"],
-        //     visitor_phone_number: $this->personal_information["Phone_Number"]
-        // );
-        // Log::info("EMAIL SENT", [$email_sent]);
-        // if ($email_sent) {
-        //     $this->saveVisitInformation($visit);
-        //     $this->dispatch('visitor-saved-event');
-        //     redirect()->route('thank-you');
-        // }
-        return redirect()->route('thank-you');
-        // $this->dispatch('visitor-saved-event');
+        $email_sent = $this->sendEmail(
+            to: $mail_to->email,
+            subject: $subject,
+            visitor_name: $this->personal_information["Name"],
+            handler_name: $mail_to->name,
+            purpose_of_visit: $official_information["Selected Purpose"],
+            visitor_phone_number: $this->personal_information["Phone_Number"]
+        );
+        Log::info("EMAIL SENT", [$email_sent]);
+        if ($email_sent) {
+            $this->saveVisitInformation($visit);
+            $this->dispatch('visitor-saved-event');
+            return redirect()->route('thank-you');
+        }
     }
     function saveVisitorProfile($visitor)
     {
