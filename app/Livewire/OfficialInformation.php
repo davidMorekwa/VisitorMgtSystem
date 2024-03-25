@@ -75,6 +75,11 @@ class OfficialInformation extends Component
         $this->dispatch('finish-click-event', $official_information);
         $this->isLoading = true;
     }
+    #[On('visitor-saved-event')]
+    function handleVisitorSavedEvent(){
+        Log::info("VISITOR SAVED EVENT HANDLED");
+        $this->isLoading = false;
+    }
 
     public function render()
     {

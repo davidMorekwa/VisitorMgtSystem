@@ -15,46 +15,72 @@ class Visitors extends Component
     public $visits = [];
     public $isEdit = false;
     private $visitors = [];
+    public $search_value;
+    private $is_search = false;
 
-    public function handleVisitorClick($id){
+    public function getVisitors(){
+        $visitors = DB::table('visitors')
+            ->paginate(20);
+        $visitors;
+        return $visitors;
+        // dd($visitors);
+        // $this->render();
+    }
+
+    public function handleVisitorClick($id)
+    {
         $visitor = Visitor::find($id);
-        Log::info("SELECTED VISITOR: ",[$visitor]);
+        Log::info("SELECTED VISITOR: ", [$visitor]);
         // $visits = Visit::where('visitor_id', '=', $id)->get();
         $visits = DB::table('visits')
             ->where('visits.visitor_id', '=', $id)
-            ->join('saccos', 'visits.sacco_id', '=', 'saccos.id', type:'left')
+            ->join('saccos', 'visits.sacco_id', '=', 'saccos.id', type: 'left')
             ->orderBy('visits.time_in', 'desc')
             ->get();
         $this->is_visitor_selected = true;
         $this->dispatch('selected_visitor_event', $visitor, $this->is_visitor_selected);
         $this->visits = $visits;
     }
-    function handleEditClick($id){
+    function handleEditClick($id)
+    {
         Log::info($id);
         $this->isEdit = true;
     }
 
-    function getVisitorByPurpose($purpose){
+    function getVisitorByPurpose($purpose)
+    {
         $visitors = DB::table('visits')
             ->where('purpose_of_visit', '=', $purpose)
             ->join('visitors', 'visits.visitor_id', '=', 'visitors.id')
             ->paginate(20);
         $this->visitors = $visitors;
         return view('livewire.dashboard.visitors')
-        ->with('visitors', $visitors)
+            ->with('visitors', $visitors)
             ->with('selected_visitor', $this->selected_visitor)
             ->with('visits', $this->visits)
             ->with('isEdit', $this->isEdit)
             ->layout('layouts.app');
     }
 
+    function handleSearch(){
+        $this->is_search = true;
+        Log::info("Search Term: ".$this->search_value);
+        $visitors = DB::table('visitors')
+            ->where('name', 'like', '%'.$this->search_value.'%')
+            ->paginate();
+        // dd($visitors);
+        return $visitors;
+        // $this->visitors = $visitors;
+    }
+
 
     public function render()
     {
-        $visitors = DB::table('visits')
-            ->join('visitors', 'visits.visitor_id', '=', 'visitors.id')
-            ->orderBy('visits.time_in')
-            ->paginate(20);
+        if (!$this->is_search) {
+            $visitors = $this->getVisitors();
+        } else {
+            $visitors = $this->handleSearch();
+        }
         $this->visitors = $visitors;
         return view('livewire.dashboard.visitors')
             ->with('visitors', $this->visitors)

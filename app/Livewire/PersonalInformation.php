@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Visit;
 use App\Models\Visitor;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -60,6 +61,7 @@ class PersonalInformation extends Component
             $this->dispatch('click-next-event', $personal_information);
         }
     }
+    
     public function handleIDNumberChange(){
         Log::info("ID NUmber ".$this->ID_number);
     }

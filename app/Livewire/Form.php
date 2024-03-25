@@ -112,8 +112,14 @@ class Form extends Component
         //     visitor_phone_number: $this->personal_information["Phone_Number"]
         // );
         // Log::info("EMAIL SENT", [$email_sent]);
-        return $this->saveVisitInformation($visit);
-        }
+        // if ($email_sent) {
+        //     $this->saveVisitInformation($visit);
+        //     $this->dispatch('visitor-saved-event');
+        //     redirect()->route('thank-you');
+        // }
+        return redirect()->route('thank-you');
+        // $this->dispatch('visitor-saved-event');
+    }
     function saveVisitorProfile($visitor)
     {
         $controller = new VisitorController();
@@ -127,8 +133,6 @@ class Form extends Component
     function saveVisitInformation($visitInfo){
         Visit::create($visitInfo);
         Log::info("Visitor created");
-        Log::info("REDIRECTING TO THANK YOU");
-        return redirect('/thankyou');
     }
     function getPortfolioHandler($sacco_id)
     {
