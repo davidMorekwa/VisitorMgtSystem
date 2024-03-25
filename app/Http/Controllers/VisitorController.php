@@ -18,6 +18,9 @@ class VisitorController extends Controller
     {
         return view('visitor-reg');
     }
+    function showTimeOutView(){
+        return view('time-out');
+    }
     function saveVisitor($visitor)
     {
         $saved_visitor = Visitor::create($visitor);
