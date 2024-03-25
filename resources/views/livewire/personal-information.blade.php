@@ -6,7 +6,7 @@
 	<br />
 	<br />
 	<div class="relative">
-		<input id="ID_number" name="ID_number" type="number"
+		<x-input id="ID_number" name="ID_number" type="number"
 			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:outline-none"
 			wire:model='ID_number' wire:change='handleIDNumberChange' wire:model.live='ID_number' />
 		<div class="font-serif text-sm font-light text-red-600">
@@ -28,7 +28,7 @@
 	<br>
 	@if (!$record_exists)
 	<div class="relative">
-		<input id="name" name="name" type="text"
+		<x-input id="name" name="name" type="text"
 			class="focus:border-sasra_color peer w-3/4 border-b bg-inherit px-3 py-1 outline-none transition-colors placeholder:text-white focus:border-b-2 focus:outline-none focus:placeholder:text-gray-400"
 			placeholder="e.g. John Doe" wire:model='name' wire:change='handleNameInputChange'
 			wire:model.live='name' />
@@ -48,7 +48,7 @@
 	<br />
 	<br />
 	<div class="relative">
-		<input id="phone_number" name="phone_number" type="number"
+		<x-input id="phone_number" name="phone_number" type="number"
 			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors placeholder:text-white focus:border-b-2 focus:outline-none focus:placeholder:text-gray-400"
 			placeholder="e.g. 254xxxxxxxx" wire:model='phone_number' wire:change='handleNameInputChange'
 			wire:model.live='phone_number' />
@@ -69,7 +69,7 @@
 	<br />
 	<br />
 	<div class="relative">
-		<input id="email" name="email" type="email"
+		<x-input id="email" name="email" type="email"
 			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors placeholder:text-white focus:border-b-2 focus:outline-none focus:placeholder:text-gray-400"
 			placeholder="e.g. example@gmail.com" wire:model='email' wire:change='handleNameInputChange'
 			wire:model.live='email' />
