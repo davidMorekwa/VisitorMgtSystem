@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Visit;
+use App\Models\Visitor;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -15,22 +16,15 @@ class TimeOut extends Component
     public $time_out;
     public function handleFormSubmit(){
         $this->validate();
-        $res = Visit::join('visitors', function ($join){
-            $join->on('visits.visitor_id', '=', 'visitors.id')
-                ->where('visitors.ID/Passport_number', '=', $this->ID_number)
-                ->orderBy('visits.time_in')
-                ;
-        })->first();
-        // $res = DB::table('visits')
-        //     ->join('visitors', 'visitors.id', '=', 'visits.visitor_id')
-        //     ->where('visitors.ID/Passport_number', '=', $this->ID_number)
-        //     ->orderBy('visits.time_in', 'desc')
-        //     ->first();
-        // dd($res);
+        $visitor = Visitor::where('ID/Passport_number', '=', $this->ID_number)->first();
+        $visitor_id = $visitor->id;
+        $visits = Visit::where('visitor_id', '=', $visitor_id)->orderBy('time_in', 'desc')->first();
         $timestamp = strtotime(date("F j, Y, g:i a"));
-        $res->time_out = date('Y-m-d H:i:s', $timestamp);
-        $res->save();
-        return redirect()->route('visitor.home');
+        $visits->time_out = date('Y-m-d H:i:s', $timestamp);
+        $res = $visits->saveOrFail();
+        if($res){
+            return redirect()->route('visitor.home');
+        }
     }
     public function render()
     {
