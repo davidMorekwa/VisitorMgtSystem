@@ -14,9 +14,6 @@ class Visitor extends Model
         "phone_number",
         "email",
         "ID/Passport_number",
-        "purpose_of_visit",
-        "sacco_id",
-        "person_to_visit"
     ];
     public $timestamps = false;
 }

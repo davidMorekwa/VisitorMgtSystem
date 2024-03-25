@@ -37,6 +37,7 @@ Route::get('/test/handler', [HandlerController::class, 'getPortfolioHandler']);
 Route::post('/test/visit/add', [VisitController::class, 'saveVisitInformation']);
 Route::get('/test2', SelectedVisitorForm::class);
 Route::get('/test3', [VisitorController::class, 'test3']);
+Route::get('/sample_export', [VisitorController::class, 'get_visitor_data'])->name('visitor.export');
 
 
 Route::middleware([
