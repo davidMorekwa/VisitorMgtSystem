@@ -95,6 +95,10 @@
 									Time
 									In
 								</th>
+								<th class="m-4">
+									Time
+									Out
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -111,6 +115,9 @@
 								</td>
 								<td>
 									{{ $visit->time_in }}
+								</td>
+								<td>
+									{{ $visit->time_out }}
 								</td>
 							</tr>
 							@endforeach

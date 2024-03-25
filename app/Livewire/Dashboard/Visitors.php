@@ -40,6 +40,7 @@ class Visitors extends Component
         $this->is_visitor_selected = true;
         $this->dispatch('selected_visitor_event', $visitor, $this->is_visitor_selected);
         $this->visits = $visits;
+        dd($visits);
     }
     function handleEditClick($id)
     {
