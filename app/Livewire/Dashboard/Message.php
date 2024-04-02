@@ -38,7 +38,7 @@ class Message extends Component
     }
     function handleSendSMSClick(){
         Log::info('Message: ', [$this->message_to_send]);
-        $basic = new Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
+        $basic  = new Basic("cd0f93ab", "32KnoDtZijH2SwwM");
         $client = new Client($basic);
         foreach ($this->visitors as $visitor) {
              Log::info("Phone Number: ".$visitor->phone_number);

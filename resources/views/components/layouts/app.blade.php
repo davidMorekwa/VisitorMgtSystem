@@ -6,8 +6,10 @@
         @vite('resources/css/app.css')
         <title>{{ $title ?? 'Page Title' }}</title>
     </head>
-    <body>
+    <body class="font-serif">
         {{-- {{ $slot }} --}}
         @yield('content')
+        
     </body>
+    <x-footer />
 </html>

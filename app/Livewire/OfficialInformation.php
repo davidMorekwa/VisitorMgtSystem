@@ -31,7 +31,14 @@ class OfficialInformation extends Component
     public $sacco_name = "";
 
     public $saccos = [];
-
+    public $visitorExists = false;
+    public $personal_information = [
+        "id" => "",
+        "Name" => "Sample",
+        "ID_Number" => "Sample",
+        "Phone_Number" => "Sample",
+        "Email_Address" => "Sample"
+    ];
 
     
 
@@ -75,11 +82,6 @@ class OfficialInformation extends Component
         $this->dispatch('finish-click-event', $official_information);
         $this->isLoading = true;
     }
-    // #[On('visitor-saved-event')]
-    // function handleVisitorSavedEvent(){
-    //     Log::info("VISITOR SAVED EVENT HANDLED");
-    //     $this->isLoading = false;
-    // }
 
     public function render()
     {
@@ -89,6 +91,8 @@ class OfficialInformation extends Component
             ->with("saccos", $this->saccos)
             ->with("selected_sacco", $this->sacco_name)
             ->with("sacco_type", $this->sacco_type)
-            ->with("isLoading", $this->isLoading);
+            ->with("isLoading", $this->isLoading)
+            ->with('visitor_exists', $this->visitorExists)
+            ->with('visitor', $this->personal_information);
     }
 }

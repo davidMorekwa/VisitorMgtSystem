@@ -15,9 +15,10 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                my_serif:['Cambria', ...defaultTheme.fontFamily.serif]
             },
             colors:{
-                sasra_color: "#F09C22",
+                sasra_color: "#D29621",
                 sasra_hover: "#FBCD89"
             }
         },
