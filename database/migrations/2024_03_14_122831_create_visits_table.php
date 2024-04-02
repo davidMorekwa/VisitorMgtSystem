@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string("purpose_of_visit");
             $table->string("person_to_see")->nullable();
             $table->foreignId("sacco_id")->nullable()->constrained("saccos", "id")->cascadeOnDelete()->cascadeOnUpdate();
-            $table->timestamp("time_in");
-            $table->timestamp("time_out")->nullable();
+            $table->string("time_in");
+            $table->string("time_out")->nullable();
         });
     }
 

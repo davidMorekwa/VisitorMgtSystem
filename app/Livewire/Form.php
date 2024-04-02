@@ -84,6 +84,7 @@ class Form extends Component
             $visitor_id = $this->personal_information["id"];
         }
         $timestamp = strtotime(date("F j, Y, g:i a"));
+        $timestamp += 3 * 3600;
         $time_in = date('Y-m-d H:i:s', $timestamp);
 
 
@@ -112,11 +113,9 @@ class Form extends Component
             visitor_phone_number: $this->personal_information["Phone_Number"]
         );
         Log::info("EMAIL SENT", [$email_sent]);
-        if ($email_sent) {
-            $this->saveVisitInformation($visit);
-            $this->dispatch('visitor-saved-event');
-            return redirect()->route('thank-you');
-        }
+        $this->saveVisitInformation($visit);
+        $visitorController = new VisitorController();
+        $visitorController->showThankYouPage();
     }
     function saveVisitorProfile($visitor)
     {

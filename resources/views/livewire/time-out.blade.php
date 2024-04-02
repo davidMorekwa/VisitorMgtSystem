@@ -24,6 +24,13 @@
         </div>
         <br>
         <x-button>Submit</x-button>
+        <br>
+        <div>
+            <div id="time_out_success-alert" class="w-20 rounded-xl shadow-2xl bg-green-200 text-center py-2 hidden">Success
+            </div>
+            <div id="time_out_failure-alert" class="w-20 rounded-xl shadow-2xl bg-red-400 text-center text-white py-2 hidden">Error
+            </div>
+        </div>
     </form>
 </div>
 

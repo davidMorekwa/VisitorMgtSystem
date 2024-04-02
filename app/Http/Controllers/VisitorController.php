@@ -28,6 +28,7 @@ class VisitorController extends Controller
     }
     function showThankYouPage()
     {
+        Log::info("Showing the Thank you page");
         return view('thank-you');
     }
     function getVisitors()
