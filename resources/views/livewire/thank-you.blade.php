@@ -1,22 +1,17 @@
-<div
-	class="w-full h-[74vh] bg-slate-100 flex flex-col justify-center items-center">
+<div class="w-full h-[74vh] bg-slate-100 flex flex-col justify-center items-center">
 	@if (session('status'))
-		<div
-			id="success-alert"
-			class="alert alert-success">
-			{{ session('status') }}
-		</div>
+	<div id="success-alert" class="alert alert-success">
+		{{ session('status') }}
+	</div>
 	@endif
 	{{-- <x-authentication-card-logo /> --}}
 	<br />
-	<p
-		class="font-serif text-2xl">
+	<p class="font-serif text-2xl">
 		THANK
 		YOU!
 	</p>
 	<br />
-	<p
-		class="font-serif text-xl font-light">
+	<p class="font-serif text-xl font-light">
 		AN
 		EMPLOYEE
 		HAS
@@ -35,19 +30,19 @@
 		.log(
 			"Event About to be dispatched"
 		)
-	// setTimeout
-	// 	(() => {
-	// 			Livewire
-	// 				.dispatch(
-	// 					'return-home-event'
-	// 				)
-	// 			console
-	// 				.log(
-	// 					"Event dispatched"
-	// 				)
-	// 		},
-	// 		5000
-	// 	);
+	setTimeout
+		(() => {
+				Livewire
+					.dispatch(
+						'return-home-event'
+					)
+				console
+					.log(
+						"Event dispatched"
+					)
+			},
+			5000
+		);
 	setTimeout
 		(() => {
 				$("#success-alert")

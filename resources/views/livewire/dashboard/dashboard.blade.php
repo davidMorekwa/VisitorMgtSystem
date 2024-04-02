@@ -1,4 +1,5 @@
 <div class="pt-3 flex flex-col">
+	{{-- SHOW VISITORS BY PURPOSE --}}
 	@if ($is_purpose_clicked)
 	<p class="text-2xl font-light">{{$purpose_clicked}}</p>
 	<br>
@@ -197,8 +198,19 @@
 		options: {
 			scales: {
 				y: {
-					beginAtZero: true
+					beginAtZero: true,
+					title: {
+						display: true,
+						text:"Number"
+					}
 				},
+				x: {
+					title: {
+						display: true,
+						text: "Hours"
+					}
+				}
+				
 			}
 		}
 		});
