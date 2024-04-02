@@ -1,5 +1,6 @@
 <div class="flex flex-row">
     <div class="w-3/4">
+        {{-- DATE FORM --}}
         <form wire:submit='handleFormSubmit' class="flex flex-row items-center w-1/2 justify-around">
             <div class="flex flex-col">
                 <label for="from_date">From</label>
@@ -47,8 +48,7 @@
                 </thead>
                 <tbody>
                     @foreach ($visitors as $visitor)
-                    <tr wire:click='handleVisitorClick({{ $visitor->id }});'
-                        class="hover:bg-sasra_hover px-3 hover:cursor-pointer border-b-2 border-dotted my-10 h-2">
+                    <tr class="hover:bg-sasra_hover px-3 hover:cursor-pointer border-b-2 border-dotted my-10 h-2">
                         <td>
                             <form action="">
                                 <input type="text" value="{{ $visitor->name }}" class="border-none bg-transparent">
@@ -71,6 +71,7 @@
         @endif
 
     </div>
+    {{-- MESSAGE FORM --}}
     <div>
         <form>
             <label for="message_to_send">Message to Send</label>

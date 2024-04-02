@@ -23,9 +23,10 @@ class Form extends Component
     // function __construct(VisitorController $visitorController){
     //     $this->visitorController = $visitorController;
     // }
-   
+    public $test = "";
+
     public $personal_information = [
-        "id"=>"",
+        "id" => "",
         "Name" => "Sample Name",
         "ID_Number" => "Sample",
         "Phone_Number" => "Sample",
@@ -64,15 +65,10 @@ class Form extends Component
         $this->isNext = false;
     }
 
-
     #[On('finish-click-event')]
     public function handleFinishClick($official_information)
     {
-        $mail_to = "";
-        $subject = "";
-        Log::info("Finish click event handled");
-        
-        if(!$this->visitorExists){
+        if (!$this->visitorExists) {
             $visitor = [
                 "name" => $this->personal_information["Name"],
                 "phone_number" => $this->personal_information["Phone_Number"],
@@ -86,25 +82,19 @@ class Form extends Component
         $timestamp = strtotime(date("F j, Y, g:i a"));
         $timestamp += 3 * 3600;
         $time_in = date('Y-m-d H:i:s', $timestamp);
-
-
         $visit = [
             "purpose_of_visit" => $official_information["Selected Purpose"],
             "visitor_id" => $visitor_id,
             "time_in" => $time_in
         ];
-
         if ($visit["purpose_of_visit"] == "Offical Visit" || $visit["purpose_of_visit"] == "Delivery") {
             $visit["person_to_visit"] = $official_information["Person to Visit"];
-        }
-        if ($visit["purpose_of_visit"] == "Make a complaint" || $visit["purpose_of_visit"] == "Accounts") {
+        } else if ($visit["purpose_of_visit"] == "Make a complaint" || $visit["purpose_of_visit"] == "Accounts") {
             $visit["sacco_id"] = intval($official_information["SACCO_Name"]);
             $mail_to = $this->getPortfolioHandler($official_information["SACCO_Name"]);
-
             $subject = "VISITOR ARRIVAL: " . $official_information["Selected Purpose"];
         }
-        Log::info("OFFICIAL INFO: ", [$visit]);
-        $email_sent = $this->sendEmail(
+        $this->sendEmail(
             to: $mail_to->email,
             subject: $subject,
             visitor_name: $this->personal_information["Name"],
@@ -112,10 +102,8 @@ class Form extends Component
             purpose_of_visit: $official_information["Selected Purpose"],
             visitor_phone_number: $this->personal_information["Phone_Number"]
         );
-        Log::info("EMAIL SENT", [$email_sent]);
         $this->saveVisitInformation($visit);
-        $visitorController = new VisitorController();
-        $visitorController->showThankYouPage();
+        $this->dispatch('redirect_event');
     }
     function saveVisitorProfile($visitor)
     {
@@ -127,9 +115,10 @@ class Form extends Component
         }
     }
     // TODO: Check why it is not redirecting
-    function saveVisitInformation($visitInfo){
-        Visit::create($visitInfo);
+    function saveVisitInformation($visitInfo)
+    {
         Log::info("Visitor created");
+        return Visit::create($visitInfo);
     }
     function getPortfolioHandler($sacco_id)
     {

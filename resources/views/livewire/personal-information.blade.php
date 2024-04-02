@@ -96,7 +96,7 @@
 		@endif
 		<div class="relative flex items-center justify-end">
 			<button wire:click='handleClick' type="button"
-				class="bg-sasra_color w-[25%] rounded-xl p-3 font-serif relative">Next</button>
+				class="bg-sasra_color w-[25%] rounded-xl p-3 font-serif relative text-white">Next</button>
 		</div>
 		<br>
 

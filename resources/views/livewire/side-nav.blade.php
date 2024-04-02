@@ -1,4 +1,4 @@
-<aside class="flex h-screen w-1/6 flex-col overflow-y-auto border-r bg-white px-4 py-8 rtl:border-l rtl:border-r-0">
+<aside class="flex h-screen w-[15%] flex-col overflow-y-auto border-r bg-white px-4 py-8 rtl:border-l rtl:border-r-0">
 
 	<div class="mt-6 flex flex-1 flex-col justify-between">
 		<nav>
