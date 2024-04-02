@@ -1,5 +1,5 @@
 <div
-	class="w-full border border-red-600 h-[100vh] flex flex-col justify-center items-center">
+	class="w-full h-[74vh] bg-slate-100 flex flex-col justify-center items-center">
 	@if (session('status'))
 		<div
 			id="success-alert"
@@ -7,10 +7,7 @@
 			{{ session('status') }}
 		</div>
 	@endif
-	<img
-		class="w-56"
-		src="{{ asset('storage/sasraLogo.jpeg') }}"
-		alt="Logo">
+	{{-- <x-authentication-card-logo /> --}}
 	<br />
 	<p
 		class="font-serif text-2xl">
@@ -38,19 +35,19 @@
 		.log(
 			"Event About to be dispatched"
 		)
-	setTimeout
-		(() => {
-				Livewire
-					.dispatch(
-						'return-home-event'
-					)
-				console
-					.log(
-						"Event dispatched"
-					)
-			},
-			5000
-		);
+	// setTimeout
+	// 	(() => {
+	// 			Livewire
+	// 				.dispatch(
+	// 					'return-home-event'
+	// 				)
+	// 			console
+	// 				.log(
+	// 					"Event dispatched"
+	// 				)
+	// 		},
+	// 		5000
+	// 	);
 	setTimeout
 		(() => {
 				$("#success-alert")

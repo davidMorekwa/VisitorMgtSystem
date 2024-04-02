@@ -26,7 +26,7 @@ class Form extends Component
    
     public $personal_information = [
         "id"=>"",
-        "Name" => "Sample",
+        "Name" => "Sample Name",
         "ID_Number" => "Sample",
         "Phone_Number" => "Sample",
         "Email_Address" => "Sample"
