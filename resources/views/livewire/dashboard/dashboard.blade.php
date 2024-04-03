@@ -1,7 +1,13 @@
 <div class="pt-3 flex flex-col">
 	{{-- SHOW VISITORS BY PURPOSE --}}
 	@if ($is_purpose_clicked)
-	<p class="text-2xl font-light">{{$purpose_clicked}}</p>
+	<div class="flex flex-row items-center justify-around w-full">
+		<p class="text-2xl font-light">{{$purpose_clicked}}</p>
+		<a href="{{ route('visitor.bypurpose.export', ['purpose'=>$purpose_clicked]) }}">
+			<x-button>Export to Excel</x-button>
+		</a>
+	</div>
+	
 	<br>
 	<div>
 		<div class="flex flex-row">
