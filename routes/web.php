@@ -32,6 +32,7 @@ Route::get('/', [Controller::class, 'showHomeScreen'])->name('visitor.home');
 Route::get('/visitor/register', [VisitorController::class, 'showRegistrationForm'])->name('visitor.register');
 Route::get('/thankyou', [VisitorController::class, 'showThankYouPage'])->name('thank-you');
 Route::get('/time_out', [VisitorController::class, 'showTimeOutView']);
+Route::get('/visitor_by_purpose_export/{purpose}', [VisitorController::class, 'export_visitors_by_purpose'])->name('visitor.bypurpose.export');
 
 
 

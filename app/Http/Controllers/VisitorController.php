@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VisitorByPurpose;
 use App\Exports\VisitorExport;
 use App\Http\Requests\VisitorsRequest;
 use App\Livewire\Form;
@@ -85,9 +86,8 @@ class VisitorController extends Controller
     function get_visitor_data(){
         return Excel::download(new VisitorExport(), 'visitors.xlsx');
     }
-    function test3()
-    {
-        $t = Visit::where('time_in', '>=', '2022-03-01 00:00:00')->get();
-        dd($t);
+    function export_visitors_by_purpose($purpose){
+        Log::info("EXPORT PURPOSE: ".$purpose);
+        return Excel::download(new VisitorByPurpose(), 'visitors '.$purpose.'.xlsx');
     }
 }
