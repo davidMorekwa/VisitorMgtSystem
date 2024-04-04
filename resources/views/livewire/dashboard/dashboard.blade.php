@@ -7,7 +7,6 @@
 			<x-button>Export to Excel</x-button>
 		</a>
 	</div>
-	
 	<br>
 	<div>
 		<div class="flex flex-row">
