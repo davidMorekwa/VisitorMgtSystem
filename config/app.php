@@ -170,7 +170,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
-        MongoDB\Laravel\MongoDBServiceProvider::class,
         \Maatwebsite\Excel\ExcelServiceProvider::class,
     ])->toArray(),
 
