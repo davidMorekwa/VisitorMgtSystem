@@ -3,9 +3,30 @@
 	@if ($is_purpose_clicked)
 	<div class="flex flex-row items-center justify-around w-full">
 		<p class="text-2xl font-light">{{$purpose_clicked}}</p>
-		<a href="{{ route('visitor.bypurpose.export', ['purpose'=>$purpose_clicked]) }}">
-			<x-button>Export to Excel</x-button>
-		</a>
+		<form wire:submit='handleDateFilterFormSubmit' class="flex flex-row items-center w-1/2">
+			<div class="flex flex-col">
+				<label for="from_date">From</label>
+				<x-input type="date" wire:model='from_date' name="from_date" id="from_date" />
+				<div class="font-serif text-sm font-light text-red-600">
+					@error('from_date')
+					{{ $message }}
+					@enderror
+				</div>
+			</div>
+			<div class="flex flex-col">
+				<label for="to_date">To</label>
+				<x-input type="date" wire:model='to_date' name="to_date" id="to_date" />
+				<div class="font-serif text-sm font-light text-red-600">
+					@error('to_date')
+					{{ $message }}
+					@enderror
+				</div>
+			</div>
+			<div>
+				<x-button type="submit">Filter</x-button>
+			</div>
+		</form>
+			<x-button wire:click='handleExportClick'>Export to Excel</x-button>
 	</div>
 	<br>
 	<div>
@@ -93,6 +114,9 @@
 							@break
 							@default
 							@endswitch
+							<td>
+								{{$visitor->time_in}}
+							</td>
 						</tr>
 						@endforeach
 					</tbody>
@@ -103,6 +127,7 @@
 	</div>
 	@else
 	{{-- DISPLAY NORMAL DASHBOARD --}}
+	
 	<div>
 		<h3 class="font-bold text-2xl">Visitors By Purpose</h3>
 		<div id="myVisitorCategories" class="w-full">
@@ -117,6 +142,7 @@
 		<hr class="border-2">
 	</div>
 	<div class="w-full flex flex-row items-center justify-evenly">
+
 		<div class="w-1/2">
 			<h2 class="font-bold text-2xl">Peak Hours</h2>
 			<canvas id="myPeakHoursChart"></canvas>
@@ -129,6 +155,8 @@
 		</div>
 	</div>
 	@endif
+	
+	
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -235,9 +263,7 @@
 			},
 			options: {
 				scales: {
-					y: {
-						beginAtZero: false
-					},
+					
 				}
 			}
 		});

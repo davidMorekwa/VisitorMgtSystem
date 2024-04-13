@@ -7,6 +7,7 @@ use App\Models\Visit;
 use App\Models\Visitor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Visitors extends Component
@@ -17,6 +18,11 @@ class Visitors extends Component
     private $visitors = [];
     public $search_value;
     private $is_search = false;
+    // #[Validate('required', message: "The 'From Date' field is required")]
+    public $from_date;
+    // #[Validate('required', message: "The 'To Date' field is required")]
+    public $to_date;
+    public $is_filter = false;
 
     public function getVisitors(){
         $visitors = DB::table('visitors')
@@ -48,21 +54,6 @@ class Visitors extends Component
         $this->isEdit = true;
     }
 
-    function getVisitorByPurpose($purpose)
-    {
-        $visitors = DB::table('visits')
-            ->where('purpose_of_visit', '=', $purpose)
-            ->join('visitors', 'visits.visitor_id', '=', 'visitors.id')
-            ->paginate(20);
-        $this->visitors = $visitors;
-        return view('livewire.dashboard.visitors')
-            ->with('visitors', $visitors)
-            ->with('selected_visitor', $this->selected_visitor)
-            ->with('visits', $this->visits)
-            ->with('isEdit', $this->isEdit)
-            ->layout('layouts.app');
-    }
-
     function handleSearch(){
         $this->is_search = true;
         Log::info("Search Term: ".$this->search_value);
@@ -74,15 +65,30 @@ class Visitors extends Component
         // $this->visitors = $visitors;
     }
 
+    function handleTimeRangeFormSubmit(){
+        // $this->validate();
+        $this->is_filter = true;
+        $visitors = DB::table('visits')
+            ->where('time_in', '>=', $this->from_date)
+            ->where('time_in', '<=', $this->to_date)
+            ->join('visitors', 'visitors.id', '=', 'visits.visitor_id')
+            ->paginate();
+        return $visitors;
+        // dd($visitors);
+    }
+
 
     public function render()
     {
-        if (!$this->is_search) {
-            $visitors = $this->getVisitors();
-        } else {
+        if ($this->is_search) {
             $visitors = $this->handleSearch();
+        } else if($this->is_filter){
+            $visitors = $this->handleTimeRangeFormSubmit();
+        } else {
+            $visitors = $this->getVisitors();
         }
         $this->visitors = $visitors;
+        Log::info("Visitors Gotten: ", [$this->visitors]);
         return view('livewire.dashboard.visitors')
             ->with('visitors', $this->visitors)
             ->with('is_visitor_selected', $this->is_visitor_selected)

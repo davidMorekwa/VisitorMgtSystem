@@ -9,8 +9,9 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class VisitorByPurpose implements FromCollection, WithHeadings
 {
     public $purpose;
-    public function __construct($purpose = "Accounts"){
-        $this->purpose = $purpose;
+    public $visitors;
+    public function __construct($visitors){
+        $this->visitors = $visitors;
     }
     /**
     * @return \Illuminate\Support\Collection
@@ -32,11 +33,12 @@ class VisitorByPurpose implements FromCollection, WithHeadings
     }
     public function collection()
     {
-        return DB::table('visitors')
-            ->join('visits', 'visits.visitor_id', '=', 'visitors.id')
-            ->join('saccos', 'visits.sacco_id', '=', 'saccos.id', type: 'left')
-            ->where('visits.purpose_of_visit', '=', $this->purpose)
-            ->select(['visitors.*', 'visits.purpose_of_visit', 'visits.person_to_see', 'saccos.sacco_name', 'visits.time_in', 'visits.time_out'])
-            ->get();
+        // return DB::table('visitors')
+        //     ->join('visits', 'visits.visitor_id', '=', 'visitors.id')
+        //     ->join('saccos', 'visits.sacco_id', '=', 'saccos.id', type: 'left')
+        //     ->where('visits.purpose_of_visit', '=', $this->purpose)
+        //     ->select(['visitors.*', 'visits.purpose_of_visit', 'visits.person_to_see', 'saccos.sacco_name', 'visits.time_in', 'visits.time_out'])
+        //     ->get();
+        return $this->visitors;
     }
 }

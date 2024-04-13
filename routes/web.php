@@ -9,6 +9,7 @@ use App\Http\Controllers\VisitorController;
 use App\Livewire\Dashboard;
 use App\Livewire\Dashboard\Dashboard as DashboardDashboard;
 use App\Livewire\Dashboard\Message;
+use App\Livewire\Dashboard\Other;
 use App\Livewire\Dashboard\SelectedVisitorForm;
 use App\Livewire\Dashboard\Visitors;
 use App\Livewire\Form;
@@ -32,7 +33,7 @@ Route::get('/', [Controller::class, 'showHomeScreen'])->name('visitor.home');
 Route::get('/visitor/register', [VisitorController::class, 'showRegistrationForm'])->name('visitor.register');
 Route::get('/thankyou', [VisitorController::class, 'showThankYouPage'])->name('thank-you');
 Route::get('/time_out', [VisitorController::class, 'showTimeOutView']);
-Route::get('/visitor_by_purpose_export/{purpose}', [VisitorController::class, 'export_visitors_by_purpose'])->name('visitor.bypurpose.export');
+Route::get('/visitor_by_purpose_export/{purpose}/', [VisitorController::class, 'export_visitors_by_purpose'])->name('visitor.bypurpose.export');
 
 
 
@@ -49,5 +50,7 @@ Route::middleware([
     Route::get('visitors/getbypurpose', [VisitorController::class, 'getVisitorByPurpose']);
     Route::get('/dashboard/message', Message::class)->name('dashboard.message');
     Route::get('/visitor_export', [VisitorController::class, 'get_visitor_data'])->name('visitor.export');
+    Route::get('/dashboard/other', Other::class)->name('dashboard.other');
+    Route::post('/dashboard/other/register', [Controller::class, 'store'])->name('dashboard.register');
 });
 
