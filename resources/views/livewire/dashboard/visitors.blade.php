@@ -2,7 +2,7 @@
 	<br>
 	<div class="w-full flex flex-row items-center justify-around">
 		{{-- SEARCH --}}
-		<form wire:submit='handleSearch' class="w-1/2 flex items-center">
+		<form wire:submit='handleSearch' class="flex items-center">
 			<x-input wire:model='search_value' placeholder="Search..."></x-input>
 			<x-button type='submit' class="ml-4">
 				<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
@@ -12,6 +12,30 @@
 					</path>
 				</svg>
 			</x-button>
+		</form>
+		<form wire:submit='handleTimeRangeFormSubmit' class="flex flex-row items-center justify-around">
+			<div class="flex flex-col">
+				<label for="from_date">From</label>
+				<x-input type="date" wire:model='from_date' name="from_date" id="from_date" />
+				<div class="font-serif text-sm font-light text-red-600">
+					@error('from_date')
+					{{ $message }}
+					@enderror
+				</div>
+			</div>
+			<div class="flex flex-col">
+				<label for="to_date">To</label>
+				<x-input type="date" wire:model='to_date' name="to_date" id="to_date" />
+				<div class="font-serif text-sm font-light text-red-600">
+					@error('to_date')
+					{{ $message }}
+					@enderror
+				</div>
+			</div>
+			<div>
+				<x-button type="submit">Get visitors</x-button>
+			</div>
+		
 		</form>
 		{{-- EXPORT TO EXCEL BUTTON --}}
 		<a href="{{ route('visitor.export') }}">
@@ -78,6 +102,7 @@
 			<br>
 			<div class="w-full">
 				<div>
+					<p>Number of visits: {{count($visits)}}</p>
 					<table class="w-full table-auto">
 						<thead>
 							<tr>

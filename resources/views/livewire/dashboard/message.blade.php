@@ -23,7 +23,6 @@
             <div>
                 <x-button type="submit">Get visitors</x-button>
             </div>
-
         </form>
         <br>
         @if ($is_search)

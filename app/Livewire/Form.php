@@ -114,7 +114,6 @@ class Form extends Component
             return $visitor;
         }
     }
-    // TODO: Check why it is not redirecting
     function saveVisitInformation($visitInfo)
     {
         Log::info("Visitor created");
