@@ -52,6 +52,11 @@ class VisitorController extends Controller
         $visits = Visit::select('time_in')
             ->whereNotNull('time_in')
             ->get();
+        // dd($visits);
+
+        return $this->returnPeakHoursData($visits);
+    }
+    function returnPeakHoursData($visits){
         $visitorCount = [];
 
         foreach ($visits as $visit) {
@@ -74,14 +79,37 @@ class VisitorController extends Controller
         return $data;
     }
 
+    function getPeakHoursFilter($from_date, $to_date){
+        $visits = Visit::select('time_in')
+            ->where('time_in', '>=', $from_date.' 00:00:00')
+            ->where('time_in', '<=', $to_date . ' 00:00:00')
+            ->whereNotNull('time_in')
+            ->get();
+        // Log::info("Visits filter",[$visits]);
+        // dd($visits);
+        return $this->returnPeakHoursData($visits);
+    }
+
     function getVisitorByPurpose()
     {
         $visits = Visit::all()->groupBy('purpose_of_visit');
+        return $this->returnVisitorByPurposeData($visits);
+    }
+    function returnVisitorByPurposeData($visits){
         $data = [];
         foreach ($visits as $key => $value) {
             $data[$key] = count($visits[$key]);
         }
         return $data;
+    }
+    function getVisitorByPurposeFilter($from_date, $to_date){
+        $visits = Visit::where('time_in', '>=', $from_date . ' 00:00:00')
+            ->where('time_in', '<=', $to_date . ' 00:00:00')
+            ->whereNotNull('time_in')
+            ->get()
+            ->groupBy('purpose_of_visit');
+        // dd($visits);
+        return $this->returnVisitorByPurposeData($visits);
     }
     function get_visitor_data(){
         return Excel::download(new VisitorExport(), 'visitors.xlsx');

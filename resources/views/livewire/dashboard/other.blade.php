@@ -27,8 +27,8 @@
                         </div>
                 
                         <div class="mt-5">
-                            <a href="{{ asset('storage/logs/laravel.log') }}">
-                                <button class="border p-2 rounded-lg bg-gray-700 text-white">Show Logs</button>
+                            <a href="{{ route('show.logs') }}">
+                                <x-danger-button class="border p-2 rounded-lg bg-gray-700 text-white">Show Logs</x-danger-button>
                             </a>
                         </div>
                     </x-slot>
