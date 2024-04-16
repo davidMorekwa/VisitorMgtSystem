@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('visitor_id')->constrained('visitors', 'id')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string("purpose_of_visit");
+            $table->string('purpose_of_visit');
+            $table->foreign('purpose_of_visit')->references('purpose')->on('visit_purposes');
             $table->string("person_to_see")->nullable();
             $table->foreignId("sacco_id")->nullable()->constrained("saccos", "id")->cascadeOnDelete()->cascadeOnUpdate();
             $table->string("time_in");

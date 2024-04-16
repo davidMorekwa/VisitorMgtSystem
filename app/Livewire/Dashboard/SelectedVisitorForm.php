@@ -33,10 +33,10 @@ class SelectedVisitorForm extends Component
         $this->email = $visitor["email"];
         $this->phone_number = $visitor["phone_number"];
         $this->ID_Passport_number = $visitor["ID/Passport_number"];
+
     }
 
     function handleSubmit(){
-        Log::info("Form submitted");
         $visitor = Visitor::find($this->id);
         Log::info("Retrieved Visitor ", [$visitor]);
         $visitor->name = $this->name;
@@ -44,6 +44,7 @@ class SelectedVisitorForm extends Component
         $visitor->phone_number = $this->phone_number;
         $visitor->email = $this->email;
         $visitor->save();
+        Log::info("(" . Auth()->user()->name . ") Editted visitor info.");
         if($visitor->save()){
             $this->dispatch('visitor_info_update_success_event');
         } else {
@@ -54,6 +55,7 @@ class SelectedVisitorForm extends Component
     function handleDeleteClick(){
         if(Auth::user()->role_id == 1){
             Visitor::find($this->id)->delete();
+            Log::info("(" . Auth()->user()->name . ") Deleted visitor info.");
             return redirect()->route('dashboard.visitors');
         } else {
             Log::error("You do not have the permission to carry out this operation");

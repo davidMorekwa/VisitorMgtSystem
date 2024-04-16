@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Sacco;
 use App\Models\Saccos;
+use App\Models\VisitPurpose;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -17,12 +19,7 @@ class OfficialInformation extends Component
     // #[Validate('required', message: "Name required")]
     // #[Validate('regex:/^[a-zA-Z\-\'\s]+$/', message: "Invalid character in name")]
     public $person_to_visit = "";
-    public $options = [
-        'Make a complaint',
-        'Official visit',
-        'Accounts',
-        'Delivery'
-    ];
+    public $options;
     public $isLoading = false;
     // #[Validate('required', message:"Required")]
     public $sacco_type = "";
@@ -85,6 +82,9 @@ class OfficialInformation extends Component
 
     public function render()
     {
+        $visit_purposes = DB::table('visit_purposes')->get();
+        Log::info("Visit Purposes: ", [$visit_purposes]);
+        $this->options = $visit_purposes;
         return view('livewire.official-information')
             ->with("options", $this->options)
             ->with("selected", $this->selected_purpose)

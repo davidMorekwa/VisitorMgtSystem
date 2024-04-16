@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard;
 use App\Exports\VisitorByPurpose;
 use App\Models\Visit;
 use App\Models\Visitor;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
@@ -27,7 +28,7 @@ class Dashboard extends Component
 
     public function handlePurposeClick($purpose)
     {
-        Log::info("Purpose button clicked", [$purpose]);
+        Log::info("(".Auth()->user()->name.") Purpose button clicked", [$purpose]);
         $this->purpose_clicked = $purpose;
         $this->is_purpose_clicked = true;
         $visitors = DB::table('visits')
@@ -55,6 +56,7 @@ class Dashboard extends Component
     }
 
     public function handleExportClick(){
+        Log::info("(" . Auth()->user()->name . ") Visitors by purpose: ". $this->purpose_clicked." exported");
         return Excel::download(new VisitorByPurpose(visitors:$this->visitors), 'visitors ' . $this->purpose_clicked . '.xlsx');
     }
 

@@ -12,6 +12,7 @@ use App\Models\Sacco;
 use App\Models\Saccos;
 use App\Models\Visit;
 use App\Models\Visitor;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\On;
@@ -38,7 +39,6 @@ class Form extends Component
     #[On('visitor-exists-event')]
     public function handleVisitorExistsEvent($visitor)
     {
-        Log::info("VISITOR EXISTS EVENT HANDLED");
         $this->visitorExists = true;
         $this->isNext = true;
         $this->personal_information["id"] = $visitor["id"];
@@ -80,8 +80,8 @@ class Form extends Component
             $visitor_id = $this->personal_information["id"];
         }
         $timestamp = strtotime(date("F j, Y, g:i a"));
-        $timestamp += 3 * 3600;
         $time_in = date('Y-m-d H:i:s', $timestamp);
+        Log::info("TIME IN: ".$time_in);
         $visit = [
             "purpose_of_visit" => $official_information["Selected Purpose"],
             "visitor_id" => $visitor_id,

@@ -41,13 +41,11 @@ class PersonalInformation extends Component
             $visitor = Visitor::where('ID/Passport_number', '=', $this->ID_number)->first();
             Log::info("",[$visitor]);
             if ($visitor === null) {
-                Log::info("STATUS: false");
+                Log::info("VISITOR INFO STATUS: false");
                 $this->record_exists = false;
             } else {
-                Log::info("STATUS true");
+                Log::info("VISITOR INFO STATUS true");
                 $this->dispatch('visitor-exists-event', $visitor);
-                Log::info("EVENT DISPATCHED");
-
             }
         } else {
             $validated = $this->validate();
