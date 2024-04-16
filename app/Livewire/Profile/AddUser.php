@@ -20,13 +20,6 @@ class AddUser extends Component
     #[Validate('required')]
     public $role_id;
 
-    public function handleUserAdd(){
-        $this->validate();
-        User::create([
-            
-        ]);
-    }
-
     public function render()
     {
         return view('livewire.profile.add-user');

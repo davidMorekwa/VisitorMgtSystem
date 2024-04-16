@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\VisitPurpose;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
@@ -27,12 +28,14 @@ class Controller extends BaseController
         return redirect()->route('dashboard.other');
     }
     function showLogs(){
-        if (Auth::user()->role_id == 1) {
-            $file = storage_path('/logs/laravel.log');
-            return response()->file($file);
-        } else{
-            return response(status:403, content:"Unathorized Operation");
-        }
+        $file = storage_path('/logs/laravel.log');
+        return response()->file($file);
+    }
+    function addPurposeOfVisit(Request $request){
+        VisitPurpose::create($request->all());
+        return redirect()->route('dashboard.other');
+    }
+    function deletePurposeOfVisit(){
         
     }
 }

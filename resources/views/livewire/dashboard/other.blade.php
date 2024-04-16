@@ -4,10 +4,10 @@
             <div class="mt-10 sm:mt-0">
                 @livewire('profile.add-user')
             </div>
-
             <x-section-border />
 
-            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
+                <x-add-visit-purpose />
+
             <x-section-border />
 {{-- SHOW LOGS --}}
             <div class="mt-10 sm:mt-0">
@@ -34,7 +34,6 @@
                     </x-slot>
                 </x-action-section>
             </div>
-            @endif
             
         </div>
     </div>

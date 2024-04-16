@@ -54,8 +54,10 @@ Route::middleware([
     Route::get('/dashboard/message', Message::class)->name('dashboard.message');
     Route::get('/visitor_export', [VisitorController::class, 'get_visitor_data'])->name('visitor.export');
     Route::get('/dashboard/other', Other::class)->name('dashboard.other');
-    Route::post('/dashboard/other/register', [Controller::class, 'store'])->name('dashboard.register');
+    Route::post('/dashboard/other/register', [Controller::class, 'store'])->name('dashboard.register')->middleware('role.admin');
     Route::get('/visitor_by_purpose_export/{purpose}/', [VisitorController::class, 'export_visitors_by_purpose'])->name('visitor.bypurpose.export');
-    Route::get('/logs', [Controller::class, 'showLogs'])->name('show.logs');
+    Route::get('/logs', [Controller::class, 'showLogs'])->name('show.logs')->middleware('role.admin');
+    Route::post('/purpose', [Controller::class, 'addPurposeOfVisit'])->middleware('role.admin');
+    Route::delete('/purpose/{purpose_name}')->middleware('role.admin');
 });
 

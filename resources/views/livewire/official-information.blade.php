@@ -13,9 +13,9 @@
 			<option value="" class="">
 			</option>
 			@foreach ($options as $option)
-			<option value="{{ $option }}">
-				{{ $option }}
-			</option>
+				<option value="{{ $option->purpose }}">
+					{{ $option->purpose }}
+				</option>
 			@endforeach
 		</select>
 		<div class="font-serif text-sm font-light text-red-600">
@@ -37,7 +37,7 @@
 	{{-- If purpose is "Complaints" or "Accounts" display this section --}}
 	@if (
 	$selected_purpose ==
-	'Make a complaint' ||
+	'Make a Complaint' ||
 	$selected_purpose ==
 	'Accounts')
 	<div class="relative flex flex-row items-center justify-between">

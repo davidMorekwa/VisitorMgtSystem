@@ -26,7 +26,6 @@ class Message extends Component
 
     function handleFormSubmit()
     {
-        Log::info("Form submitted");
         $this->validate();
         $this->is_search = true;
         Log::info("Values: ", [$this->from_date, $this->to_date]);
@@ -40,6 +39,7 @@ class Message extends Component
         Log::info('Message: ', [$this->message_to_send]);
         $basic  = new Basic("cd0f93ab", "32KnoDtZijH2SwwM");
         $client = new Client($basic);
+        Log::info("(" . Auth()->user()->name . ") Sending SMS");
         foreach ($this->visitors as $visitor) {
              Log::info("Phone Number: ".$visitor->phone_number);
             $response = $client->sms()->send(
@@ -56,10 +56,9 @@ class Message extends Component
     }
     function handleSendEmailClick(){
         Log::info('Message: ', [$this->message_to_send]);
+        Log::info("(" . Auth()->user()->name . ") Sending Email");
         foreach ($this->visitors as $visitor) {
-            Log::info("Email Address: ".$visitor->email);
             $email = $this->sendEmail(to: $visitor->email, subject:"SASRA CUSTOMER FEEDBACK", visitor_name:$visitor->name, email_body:$this->message_to_send);
-            Log::info("EMAIL SENT", [$email]);
         }
     }
     function sendEmail($to, $subject, $visitor_name, $email_body){
