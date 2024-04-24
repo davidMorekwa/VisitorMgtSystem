@@ -5,11 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         @vite('resources/css/app.css')
-        <title>{{ $title ?? 'Page Title' }}</title>
+        <title>SASRA VMS</title>
     </head>
     <body class="font-serif">
-        {{-- {{ $slot }} --}}
-        @yield('content')
+        {{ $slot }}
+        {{-- @yield('content') --}}
         
     </body>
     <x-footer />

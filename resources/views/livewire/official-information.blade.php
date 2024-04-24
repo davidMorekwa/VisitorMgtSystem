@@ -1,4 +1,4 @@
-<div class=" bg-white rounded-3xl w-[45%] mt-24 px-5 py-10">
+<div class=" bg-white rounded-3xl w-[45%] sm:w-full md:w-3/4 mt-24 px-5 py-10">
 	<h3 class="font-serif text-2xl font-bold text-center">
 		Official
 		Information
@@ -9,7 +9,7 @@
 	<div class="relative">
 		<select wire:model="selected_purpose" wire:model.live='selected_purpose' wire:change='handleOptionChange'
 			name="purpose" required id="purpose"
-			class="w-3/4 px-3 py-1 transition-colors border-b border-gray-300 focus:text-black focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit">
+			class="w-3/4 sm:w-full md:w-[85%] px-3 py-1 transition-colors border-b border-gray-300 focus:text-black focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit">
 			<option value="" class="">
 			</option>
 			@foreach ($options as $option)
@@ -40,9 +40,9 @@
 	'Make a Complaint' ||
 	$selected_purpose ==
 	'Accounts')
-	<div class="relative flex flex-row items-center justify-between">
+	<div class="relative flex flex-row sm:flex-col md:flex-col items-center justify-between">
 		{{-- select sacco type --}}
-		<div class="w-[30%]">
+		<div class="w-[30%] sm:w-full md:w-full">
 			<select name="sacco_type" id="sacco_type" wire:model='sacco_type' wire:model.live='sacco_type'
 				wire:change='handleSaccoTypeChange'
 				class="w-full px-3 py-1 mr-10 transition-colors border-b border-gray-300 focus:text-black focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit">
@@ -70,10 +70,10 @@
 			</div>
 		</div>
 		{{-- select sacco name --}}
-		<div class="w-[60%]">
+		<div class="w-[60%] sm:w-full md:w-full">
 			<select wire:model="sacco_name" wire:model.live='sacco_name' wire:change='handleOptionChange'
 				name="sacco_name" id="sacco_name"
-				class="w-full px-3 py-1 transition-colors border-b border-gray-300 focus:text-black focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit">
+				class="w-full relative px-3 py-1 transition-colors border-b border-gray-300 focus:text-black focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit">
 				<option value="" class="">
 				</option>
 				@foreach ($saccos as $option)
@@ -91,7 +91,7 @@
 			$selected_sacco ==
 			'')
 			<label for="sacco_name"
-				class="absolute font-light text-gray-600 transition-all left-[22rem] top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">SACCO
+				class="absolute font-light text-gray-600 transition-all left-[22rem] sm:left-[1rem] md:left-[1rem] top-1 sm:top-10 md:top-10 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">SACCO
 				Name</label>
 			@endif
 		</div>

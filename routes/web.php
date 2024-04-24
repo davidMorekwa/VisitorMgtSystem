@@ -16,6 +16,7 @@ use App\Livewire\Form;
 use App\Livewire\Homescreen;
 use App\Livewire\OfficialInformation;
 use App\Livewire\ThankYou;
+use App\Livewire\TimeOut;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,10 +30,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Controller::class, 'showHomeScreen'])->name('visitor.home');
-Route::get('/visitor/register', [VisitorController::class, 'showRegistrationForm'])->name('visitor.register');
-Route::get('/thankyou', [VisitorController::class, 'showThankYouPage'])->name('thank-you');
-Route::get('/time_out', [VisitorController::class, 'showTimeOutView']);
+Route::get('/', HomeScreen::class)->name('visitor.home');
+Route::get('/visitor/register', Form::class)->name('visitor.register');
+Route::get('/thankyou', ThankYou::class)->name('thank-you');
+Route::get('/time_out', TimeOut::class);
+
 
 
 
