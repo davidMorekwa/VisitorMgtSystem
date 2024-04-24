@@ -22,6 +22,10 @@ export default {
                 sasra_hover: "#FBCD89"
             }
         },
+        screens: {
+            'sm': {'max': '430px'},
+            'md':{'max': '1024px'},
+        }
     },
 
     plugins: [forms, typography],
