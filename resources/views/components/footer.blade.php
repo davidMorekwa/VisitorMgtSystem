@@ -20,4 +20,6 @@
                   fianancial stability</p>
       </div>
       <img class="w-[25%] sm:w-full" src="{{ asset('storage/core-values.png') }}" alt="">
+
 </footer>
+<p class="text-[10px] text-center">Designed by: ❤️ David Morekwa</p>
