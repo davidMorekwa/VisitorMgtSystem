@@ -1,5 +1,5 @@
-<div class=" bg-white rounded-3xl w-[45%] sm:w-full md:w-3/4 mt-24 px-5 py-10">
-	<h3 class="font-serif text-2xl font-bold text-center">
+<div class="my_my_smw-full m_my_mdw-3/4 mt-24 w-[45%] rounded-3xl bg-white px-5 py-10">
+	<h3 class="text-center font-serif text-2xl font-bold">
 		Official
 		Information
 	</h3>
@@ -9,13 +9,13 @@
 	<div class="relative">
 		<select wire:model="selected_purpose" wire:model.live='selected_purpose' wire:change='handleOptionChange'
 			name="purpose" required id="purpose"
-			class="w-3/4 sm:w-full md:w-[85%] px-3 py-1 transition-colors border-b border-gray-300 focus:text-black focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit">
+			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:text-black focus:outline-none my_smw-full my_mdw-[85%]">
 			<option value="" class="">
 			</option>
 			@foreach ($options as $option)
-				<option value="{{ $option->purpose }}">
-					{{ $option->purpose }}
-				</option>
+			<option value="{{ $option->purpose }}">
+				{{ $option->purpose }}
+			</option>
 			@endforeach
 		</select>
 		<div class="font-serif text-sm font-light text-red-600">
@@ -27,7 +27,7 @@
 		$selected_purpose ==
 		'')
 		<label for="purpose"
-			class="absolute font-light text-gray-600 transition-all left-3 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">Purpose
+			class="peer-focus:text-sasra_color absolute left-3 top-1 cursor-text font-light text-gray-600 transition-all peer-focus:-top-4 peer-focus:text-xs">Purpose
 			of
 			visit</label>
 		@endif
@@ -40,12 +40,12 @@
 	'Make a Complaint' ||
 	$selected_purpose ==
 	'Accounts')
-	<div class="relative flex flex-row sm:flex-col md:flex-col items-center justify-between">
+	<div class="relative flex flex-row items-center justify-between my_smflex-col my_mdflex-col">
 		{{-- select sacco type --}}
-		<div class="w-[30%] sm:w-full md:w-full">
+		<div class="w-[30%] my_smw-full my_mdw-full">
 			<select name="sacco_type" id="sacco_type" wire:model='sacco_type' wire:model.live='sacco_type'
 				wire:change='handleSaccoTypeChange'
-				class="w-full px-3 py-1 mr-10 transition-colors border-b border-gray-300 focus:text-black focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit">
+				class="focus:border-sasra_color peer mr-10 w-full border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:text-black focus:outline-none">
 				<option value="" class="">
 				</option>
 				<option value="DT">
@@ -60,7 +60,7 @@
 			$sacco_type ==
 			'')
 			<label for="sacco_type"
-				class="absolute font-light text-gray-600 transition-all left-[1rem] top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">SACCO
+				class="peer-focus:text-sasra_color absolute left-[1rem] top-1 cursor-text font-light text-gray-600 transition-all peer-focus:-top-4 peer-focus:text-xs">SACCO
 				Type</label>
 			@endif
 			<div class="font-serif text-sm font-light text-red-600">
@@ -70,10 +70,10 @@
 			</div>
 		</div>
 		{{-- select sacco name --}}
-		<div class="w-[60%] sm:w-full md:w-full">
+		<div class="w-[60%] my_smw-full my_mdw-full">
 			<select wire:model="sacco_name" wire:model.live='sacco_name' wire:change='handleOptionChange'
 				name="sacco_name" id="sacco_name"
-				class="w-full relative px-3 py-1 transition-colors border-b border-gray-300 focus:text-black focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit">
+				class="focus:border-sasra_color peer relative w-full border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:text-black focus:outline-none">
 				<option value="" class="">
 				</option>
 				@foreach ($saccos as $option)
@@ -91,7 +91,7 @@
 			$selected_sacco ==
 			'')
 			<label for="sacco_name"
-				class="absolute font-light text-gray-600 transition-all left-[22rem] sm:left-[1rem] md:left-[1rem] top-1 sm:top-10 md:top-10 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">SACCO
+				class="peer-focus:text-sasra_color absolute left-[22rem] top-1 cursor-text font-light text-gray-600 transition-all peer-focus:-top-4 peer-focus:text-xs my_smleft-[1rem] my_smtop-10 my_mdleft-[1rem] my_mdtop-10">SACCO
 				Name</label>
 			@endif
 		</div>
@@ -102,11 +102,12 @@
 	{{-- If purpose is "visitation" display this --}}
 	@if (
 	$selected_purpose ==
-	'Official visit' || $selected_purpose ==
+	'Official visit' ||
+	$selected_purpose ==
 	'Delivery')
 	<div class="relative">
 		<input id="person_to_visit" name="person_to_visit" type="text"
-			class="w-3/4 px-3 py-1 transition-colors border-b border-gray-300 focus:border-b-2 focus:border-sasra_color focus:outline-none peer bg-inherit"
+			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:outline-none"
 			wire:model='person_to_visit' wire:change='handleNameInputChange' wire:model.live='person_to_visit' />
 		<div class="font-serif text-sm font-light text-red-600">
 			@error('person_to_visit')
@@ -118,7 +119,7 @@
 		$person_to_visit ==
 		'')
 		<label for="person_to_visit"
-			class="absolute font-light text-gray-600 transition-all left-3 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-sasra_color">Person
+			class="peer-focus:text-sasra_color absolute left-3 top-1 cursor-text font-light text-gray-600 transition-all peer-focus:-top-4 peer-focus:text-xs">Person
 			To
 			Visit</label>
 		@endif
@@ -127,7 +128,10 @@
 	@endif
 	<br />
 	@if ($isLoading)
-	<div class="font-serif text-center font-extralight animate-bounce">Please wait...</div>
+	<div class="animate-bounce text-center font-serif font-extralight">
+		Please
+		wait...
+	</div>
 	@endif
 
 	<br />
@@ -135,9 +139,9 @@
 	<br />
 	<div class="flex items-center justify-between">
 		<button type="button" wire:click='handleBackClick'
-			class="w-[25%] bg-sasra_color p-3 rounded-xl font-serif text-white">Back</button>
+			class="bg-sasra_color w-[25%] rounded-xl p-3 font-serif text-white">Back</button>
 		<button type="button" wire:click='handleFinishClick'
-			class="w-[25%] bg-sasra_color p-3 rounded-xl font-serif text-white">Finish</button>
+			class="bg-sasra_color w-[25%] rounded-xl p-3 font-serif text-white">Finish</button>
 	</div>
 	<br>
 </div>

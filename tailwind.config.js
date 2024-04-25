@@ -20,12 +20,13 @@ export default {
             colors:{
                 sasra_color: "#D29621",
                 sasra_hover: "#FBCD89"
+            },
+            screens: {
+                'my_sm': {'max': '430px'},
+                'my_md':{'max': '1024px'},
             }
         },
-        screens: {
-            'sm': {'max': '430px'},
-            'md':{'max': '1024px'},
-        }
+        
     },
 
     plugins: [forms, typography],
