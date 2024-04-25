@@ -1,6 +1,6 @@
 <div class="bg-gray-50 flex flex-col justify-center items-center h-screen">
     <x-authentication-card-logo />
-    <form wire:submit='handleFormSubmit' class="w-1/2 border bg-white rounded-2xl py-9 flex flex-col items-center">
+    <form wire:submit='handleFormSubmit' class="w-1/2 my_sm:w-full border bg-white rounded-2xl py-9 flex flex-col items-center">
         <h2>Record time out</h2>
         <br>
         <div class="relative">

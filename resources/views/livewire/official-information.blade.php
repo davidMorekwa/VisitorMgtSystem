@@ -1,4 +1,4 @@
-<div class="my_my_smw-full m_my_mdw-3/4 mt-24 w-[45%] rounded-3xl bg-white px-5 py-10">
+<div class="my_sm:w-full my_md:w-3/4 mt-24 w-[45%] rounded-3xl bg-white px-5 py-10">
 	<h3 class="text-center font-serif text-2xl font-bold">
 		Official
 		Information
@@ -9,7 +9,7 @@
 	<div class="relative">
 		<select wire:model="selected_purpose" wire:model.live='selected_purpose' wire:change='handleOptionChange'
 			name="purpose" required id="purpose"
-			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:text-black focus:outline-none my_smw-full my_mdw-[85%]">
+			class="focus:border-sasra_color peer w-3/4 border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:text-black focus:outline-none my_sm:w-full my_md:w-[85%]">
 			<option value="" class="">
 			</option>
 			@foreach ($options as $option)
@@ -40,9 +40,9 @@
 	'Make a Complaint' ||
 	$selected_purpose ==
 	'Accounts')
-	<div class="relative flex flex-row items-center justify-between my_smflex-col my_mdflex-col">
+	<div class="relative flex flex-row items-center justify-between my_sm:flex-col my_md:flex-col">
 		{{-- select sacco type --}}
-		<div class="w-[30%] my_smw-full my_mdw-full">
+		<div class="w-[30%] my_sm:w-full my_md:w-full">
 			<select name="sacco_type" id="sacco_type" wire:model='sacco_type' wire:model.live='sacco_type'
 				wire:change='handleSaccoTypeChange'
 				class="focus:border-sasra_color peer mr-10 w-full border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:text-black focus:outline-none">
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 		{{-- select sacco name --}}
-		<div class="w-[60%] my_smw-full my_mdw-full">
+		<div class="w-[60%] my_sm:w-full my_md:w-full">
 			<select wire:model="sacco_name" wire:model.live='sacco_name' wire:change='handleOptionChange'
 				name="sacco_name" id="sacco_name"
 				class="focus:border-sasra_color peer relative w-full border-b border-gray-300 bg-inherit px-3 py-1 transition-colors focus:border-b-2 focus:text-black focus:outline-none">
@@ -91,7 +91,7 @@
 			$selected_sacco ==
 			'')
 			<label for="sacco_name"
-				class="peer-focus:text-sasra_color absolute left-[22rem] top-1 cursor-text font-light text-gray-600 transition-all peer-focus:-top-4 peer-focus:text-xs my_smleft-[1rem] my_smtop-10 my_mdleft-[1rem] my_mdtop-10">SACCO
+				class="peer-focus:text-sasra_color absolute left-[22rem] top-1 cursor-text font-light text-gray-600 transition-all peer-focus:-top-4 peer-focus:text-xs my_sm:left-[1rem] my_sm:top-10 my_md:left-[1rem] my_md:top-10">SACCO
 				Name</label>
 			@endif
 		</div>
