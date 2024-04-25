@@ -1,4 +1,4 @@
-<form class="h-[80vh] my_my_smw-full bg-gray-100 flex flex-col items-center justify-center">
+<form class="h-[80vh] my_sm-w-full bg-gray-100 flex flex-col items-center justify-center">
     @csrf
 
     <br>
